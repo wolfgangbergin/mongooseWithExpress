@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Add  A Product</h1>
-    <!-- <form action="/products" method="POST">
+    <form action="/products" method="POST">
         <p>
             <label for="name">Name</label>
             <input type="text" name="name" id="name">
@@ -18,8 +18,14 @@
         </p>
         <p>
             <label for="category">Category</label>
-            <input type="text" name="category" id="category">
+            <select name="category" id="category">
+                <option value="fruit">Fruit</option>
+                <option value="vegetable">Vegetable</option>
+                <option value="dairy">Dairy</option>
+                <option value="meat">Meat</option>
         </p>
-        <input type="submit" value="Create"> -->
+        <br>
+        <input type="submit" value="Create">
+    </form>
 </body>
 </html>
