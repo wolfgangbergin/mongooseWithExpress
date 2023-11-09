@@ -4,11 +4,12 @@ const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
 const Product = require('./models/product')
-const wolf1 = `/`
-const wolf2 = `/products`
-const wolf3 = wolf1 && wolf2
 
-l(wolf3)
+
+const wolf1 = `/products`
+
+
+
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
@@ -18,11 +19,18 @@ mongoose
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
-app.get(wolf3, async (req, res) => {
+app.get(wolf1 , async (req, res) => {
   const products = await Product.find({})
-  console.log(products)
-  res.send('All products will be here!')
+ 
+  res.render('products/index', { products })
 })
+
+app.get('/products/:id', async (req, res) => {
+  const { id } = req.params
+  const product = await Product.findById(id)
+  res.render('products/show', { product })
+})
+
 
 app.listen(3000, () => {
   l('listening on port 3000')
