@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const Product = require('./models/product')
 
 
-const wolf1 = `/products`
+const wolf1 = ``
 
 
 
@@ -19,7 +19,7 @@ mongoose
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
-app.get(wolf1 , async (req, res) => {
+app.get('/products' , async (req, res) => {
   const products = await Product.find({})
  
   res.render('products/index', { products })
