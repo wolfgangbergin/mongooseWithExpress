@@ -20,14 +20,10 @@ app.get('/products', async (req, res) => {
   
   const { category } = req.query
 
-    if (category) {
-  var products = await Product.find({  category: category })
-    } else {
-        var products = await Product.find({})
-    }
+  
+const products = category? await Product.find({ category }) : await Product.find({})
 
-
-  res.render('products/index', { products })
+  res.render('products/index', { products  })
 })
 
 app.get('/products', async (req, res) => {
