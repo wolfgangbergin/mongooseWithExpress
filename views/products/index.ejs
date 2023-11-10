@@ -6,7 +6,8 @@
     <title>products!</title>
 </head>
 <body>
-    <h1> <%= temp1 %> products!</h1>
+    
+    <h1> <%= query.category ?? 'all' %>  products!</h1>
     <ul>
         <% for(let product of products) { %>
             <li>
@@ -16,6 +17,16 @@
             </li>
         <% } %>
     </ul>
-    <a href="/products/new">Add a new product</a>
+
+    <%if(!query.category) { %>
+        <a href="/products/new">Add a new product</a>
+    <% } %>
+   
+
+    <%if(query.category) { %>
+        <a href="/products">All product</a>
+    <% } %>
+
+    
 </body>
 </html>
