@@ -19,13 +19,18 @@
         <p>
             <label for="category">Category</label>
             <select name="category" id="category">
-                <option value="fruit">Fruit</option>
-                <option value="vegetable">Vegetable</option>
-                <option value="dairy" >Dairy</option>
-                <option value="meat" selected>Meat</option>
+                <% wolfgang.categories.forEach(element => { %>
+                     <option value="<%=element%>" <%=element === 'meat' && 'selected'  %>><%=element%></option>
+                     <%  }); %>
+
+
+                
         </p>
         <br>
         <input type="submit" value="Create">
     </form>
+
+
+    <a href="/products"> cancel</a>
 </body>
 </html>
