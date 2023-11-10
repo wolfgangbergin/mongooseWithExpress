@@ -10,10 +10,11 @@
 
     <ul>
       <li>
-        <a href="/products/<%= product.price %>">price: $<%= product.price %> </a>
+        <p>price: $<%= product.price %> </p>
       </li>
       <li>
-        <a href="/products/<%= product.category %>">category: <%= product.category %> </a>
+        <p">category:  <a href="/products?category=<%= product.category %> "> <%= product.category %> </a> </p>
+      
       </li>
     </ul>
     <a href="/products">Back to all products</a>
