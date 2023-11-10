@@ -17,15 +17,12 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 app.get('/products', async (req, res) => {
-  l(req.query)
-  const { category } = req.query
+  const products = await Product.find(req.query || {})
 
-  
-const products =  await Product.find(category? { category } : {}) 
+  var temp1 = req.query.category || 'ALL'
+ 
 
-
-
-  res.render('products/index', { products  })
+  res.render('products/index', { products, temp1 })
 })
 
 app.get('/products', async (req, res) => {
