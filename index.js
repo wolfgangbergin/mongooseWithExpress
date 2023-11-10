@@ -54,10 +54,15 @@ app.get('/products/:id/edit', async (req, res) => {
 
 
 app.get('/products/:id/delete', async (req, res) => {
-    l('kimbob515')
      const { id } = req.params
      const product = await Product.deleteOne({ _id: id })
-     
+     res.redirect(`/products`)
+    }
+)
+app.delete('/products/:id', async (req, res) => {
+    
+     const { id } = req.params
+     const product = await Product.findByIdAndDelete(id)
      res.redirect(`/products`)
     }
 )
