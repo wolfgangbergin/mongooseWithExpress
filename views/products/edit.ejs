@@ -19,13 +19,20 @@
         <p>
             <label for="category">Category</label>
             <select name="category" id="category">
-                <option value="fruit">Fruit</option>
+                <option value="fruit" >Fruit</option>
                 <option value="vegetable">Vegetable</option>
-                <option value="dairy">Dairy</option>
-                <option value="meat">Meat</option>
+                <option value="dairy" >Dairy</option>
+                <option value="meat" selected>Meat</option>
         </p>
         <br>
-        <input type="submit" value="Create">
+        <input type="submit" value="submit">
     </form>
+    <a href="/products"> cancel</a>
 </body>
 </html>
+
+<!-- 
+<option value="fruit" <%=product.category === 'fruit'? selected ? ''  %>>Fruit</option>
+                <option value="vegetable" <%=product.category === 'vegetable'? selected ? ''  %>>Vegetable</option>
+                <option value="dairy" <%=product.category === 'dairy'? selected ? ''  %> >Dairy</option>
+                <option value="meat" <%=product.category === 'meat'? selected ? ''  %>>Meat</option> -->

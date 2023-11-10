@@ -47,13 +47,8 @@ app.get('/products/:id/edit', async (req, res) => {
   })
 
   app.put('/products/:id', async (req, res) => {
-    l('kimbo414')
     const { id } = req.params
-    const product = await Product.findById(id)
-    product.name = req.body.name
-    product.price = req.body.price
-    product.category = req.body.category
-    await product.save()
+    const product = await Product.findByIdAndUpdate(id, req.body, { runValidators: true, new: true })
     res.redirect(`/products`)
     })
 
