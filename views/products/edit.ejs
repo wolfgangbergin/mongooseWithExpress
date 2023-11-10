@@ -19,10 +19,9 @@
         <p>
             <label for="category">Category</label>
             <select name="category" id="category">
-                <option value="fruit" <%=product.category === 'value' && 'selected' %>>Fruit</option>
-                <option value="vegetable" <%=product.category === 'vegetable' && 'selected' %>>Vegetable</option>
-                <option value="dairy" <%=product.category === 'dairy' && 'selected' %>>Dairy</option>
-                <option value="meat"<%=product.category === 'meat' && 'selected' %>>Meat</option>
+                <% wolfgang.categories.forEach(element => { %>
+                     <option value="<%=element%>" <%=element === product.category && 'selected'  %>><%=element%></option>
+                     <%  }); %>
         </p>
         <br>
         <input type="submit" value="submit">
