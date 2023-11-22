@@ -1,8 +1,8 @@
 module.exports = (fn)=>{
     return async (req, res, next) => {
         try{
-            fn(req, res)
+          await  fn(req, res)
         }catch(err){
             return next(err)
         }
-}
+}}

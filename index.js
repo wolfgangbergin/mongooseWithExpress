@@ -5,6 +5,7 @@ const path = require('path')
 const mongoose = require('mongoose')
 const Product = require('./models/product')
 const methodOverride = require('method-override')
+const asyncError = require('./asyncError/asyncError')
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
@@ -31,15 +32,14 @@ app.get('/products/:id', async (req, res) => {
   res.render('products/show', { product })
 })
 
-app.post('/products', async (req, res, next) => {
-  try {
+app.post(
+  '/products',
+  asyncError(async (req, res, next) => {
     const newProduct = new Product(req.body)
     await newProduct.save()
     res.redirect(`/products`)
-  } catch (err) {
-    return next(err)
-  }
-})
+  })
+)
 app.get('/products/:id/edit', async (req, res) => {
   const { id } = req.params
   const product = await Product.findById(id)
