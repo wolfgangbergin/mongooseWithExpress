@@ -6,7 +6,6 @@ const mongoose = require('mongoose')
 const Product = require('./models/product')
 const methodOverride = require('method-override')
 
-
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
   .then(() => console.log('Connected to MongoDB...🏁🏁🏁'))
@@ -22,8 +21,6 @@ app.get('/products', async (req, res) => {
   res.render('products/index', { products, ...req })
 })
 
-
-
 app.get('/products/new', (req, res) => {
   res.render('products/new')
 })
@@ -34,11 +31,14 @@ app.get('/products/:id', async (req, res) => {
   res.render('products/show', { product })
 })
 
-app.post('/products', async (req, res) => {
-  l('kim313pos')
-  const newProduct = new Product(req.body)
-  await newProduct.save()
-  res.redirect(`/products`)
+app.post('/products', async (req, res, next) => {
+  try {
+    const newProduct = new Product(req.body)
+    await newProduct.save()
+    res.redirect(`/products`)
+  } catch (err) {
+    return next(err)
+  }
 })
 app.get('/products/:id/edit', async (req, res) => {
   const { id } = req.params
@@ -68,6 +68,12 @@ app.delete('/products/:id', async (req, res) => {
 //     const products = await Product.find({ category: 'meat' })
 //     res.render('products/index', { products })
 //   })
+
+app.use('/*', (err, req, res, next) => {
+  l('kim515')
+
+  res.send(err)
+})
 
 app.listen(3000, () => {
   l('listening on port 3000')
