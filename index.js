@@ -35,7 +35,7 @@ app.get('/products/:id', async (req, res) => {
 })
 
 app.post('/products', async (req, res) => {
-  l('kim313post')
+  l('kim313pos')
   const newProduct = new Product(req.body)
   await newProduct.save()
   res.redirect(`/products`)
