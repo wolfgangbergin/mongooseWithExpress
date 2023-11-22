@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const Product = require('./models/product')
 const methodOverride = require('method-override')
 
+
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
   .then(() => console.log('Connected to MongoDB...🏁🏁🏁'))
