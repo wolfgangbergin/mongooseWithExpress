@@ -70,8 +70,6 @@ app.delete('/products/:id', async (req, res) => {
 //   })
 
 app.use('/*', (err, req, res, next) => {
-  l('kim515')
-
   res.send(err)
 })
 
