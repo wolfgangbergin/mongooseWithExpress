@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const Product = require('./models/product')
 const methodOverride = require('method-override')
 const asyncError = require('./asyncError/asyncError')
+const Farm = require('./models/farm')
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
@@ -23,8 +24,8 @@ app.get('/farms/new', (req, res) => {
 })
 
 app.post('/farms', asyncError(async (req, res, next) => {
-  const newFarm = new Farm(req.body)
-  await newFarm.save()
+  // const newFarm = new Farm(req.body)
+  // await newFarm.save()
   // res.redirect(`/farms`)
   res.send(req.body)
 }
