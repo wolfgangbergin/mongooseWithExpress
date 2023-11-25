@@ -22,7 +22,7 @@ app.use(methodOverride('_method'))
 app.get(
   '/farms',
   asyncError(async (req, res, next) => {
-    l('kim515')
+   
     const farms = await Farm.find({})
     res.render('farms/index', { farms })
   })
@@ -42,11 +42,23 @@ app.post(
 )
 
 app.get(
-  '/farms/:id',
+  '/farms/:id/delete',
   asyncError(async (req, res, next) => {
     const { id } = req.params
+    const product = await Farm.deleteOne({ _id: id })
+    res.redirect(`/farms`)
+  })
+)
+
+app.get(
+  '/farms/:id',
+  asyncError(async (req, res, next) => {
+   
+    const { id } = req.params
+  
     const farm = await Farm.findById(id)
-    res.render('farm/show', { farm })
+   
+    res.render('farms/show', { farm })
   })
 )
 
@@ -54,7 +66,7 @@ app.get(
 app.get(
   '/products',
   asyncError(async (req, res, next) => {
-    l('kim414')
+   
     const products = await Product.find(req.query ?? {})
     res.render('products/index', { products, ...req })
   })

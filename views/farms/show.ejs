@@ -6,13 +6,18 @@
     <title>farms </title>
   </head>
   <body>
-
-
+    <h1>Name: <%= farm.name %></h1>
+    <p>City: <%= farm.city %></p>
+    <p>Email: <%= farm.email %></p>
     <ul>
      
       
     </ul>
-   
+    <a href="/farms">Back to all farms</a>
+    <a href="/farms/<%= farm._id %>/edit">Edit</a>
+    <a href="/farms/<%= farm._id %>/delete">wolf's Delete</a>
+    <form action="/farms/<%= farm._id %>?_method=DELETE" method="POST">
+      <input type="submit" value="Delete" />
     </form>
   </body>
 </html>
