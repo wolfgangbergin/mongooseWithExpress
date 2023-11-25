@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const productSchema = new Schema({
+const farmSchema = new Schema({
   name: {
     type: String,
     required: [true, 'Name is required'],
@@ -22,6 +22,6 @@ const productSchema = new Schema({
   ],
 })
 
-const Farm = mongoose.model('Product', productSchema)
+const Farm = mongoose.model('Farm', farmSchema)
 
 module.exports = Farm

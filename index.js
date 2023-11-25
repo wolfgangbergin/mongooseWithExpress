@@ -19,33 +19,50 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 // Farm routes
 
+app.get(
+  '/farms',
+  asyncError(async (req, res, next) => {
+    l('kim515')
+    const farms = await Farm.find({})
+    res.render('farms/index', { farms })
+  })
+)
+
 app.get('/farms/new', (req, res) => {
   res.render('farms/new')
 })
 
-app.post('/farms', asyncError(async (req, res, next) => {
-  // const newFarm = new Farm(req.body)
-  // await newFarm.save()
-  // res.redirect(`/farms`)
-  res.send(req.body)
-}
-))
+app.post(
+  '/farms',
+  asyncError(async (req, res, next) => {
+    const newFarm = new Farm(req.body)
+    await newFarm.save()
+    res.redirect(`/farms`)
+  })
+)
 
 // product routes
-app.get('/products',  asyncError(async (req, res, next) => {
-  const products = await Product.find(req.query ?? {})
-  res.render('products/index', { products, ...req })
-}))
+app.get(
+  '/products',
+  asyncError(async (req, res, next) => {
+    l('kim414')
+    const products = await Product.find(req.query ?? {})
+    res.render('products/index', { products, ...req })
+  })
+)
 
 app.get('/products/new', (req, res) => {
   res.render('products/new')
 })
 
-app.get('/products/:id', asyncError(async (req, res, next) => {
-  const { id } = req.params
-  const product = await Product.findById(id)
-  res.render('products/show', { product })
-}))
+app.get(
+  '/products/:id',
+  asyncError(async (req, res, next) => {
+    const { id } = req.params
+    const product = await Product.findById(id)
+    res.render('products/show', { product })
+  })
+)
 
 app.post(
   '/products',
@@ -55,30 +72,41 @@ app.post(
     res.redirect(`/products`)
   })
 )
-app.get('/products/:id/edit', asyncError(async (req, res, next) => {
-  const { id } = req.params
-  const product = await Product.findById(id)
-  res.render('products/edit', { product })
-}))
+app.get(
+  '/products/:id/edit',
+  asyncError(async (req, res, next) => {
+    const { id } = req.params
+    const product = await Product.findById(id)
+    res.render('products/edit', { product })
+  })
+)
 
-app.put('/products/:id', asyncError(async (req, res, next) => {
-  const { id } = req.params
-  const product = await Product.findByIdAndUpdate(id, req.body, { runValidators: true, new: true })
-  res.redirect(`/products`)
-}))
+app.put(
+  '/products/:id',
+  asyncError(async (req, res, next) => {
+    const { id } = req.params
+    const product = await Product.findByIdAndUpdate(id, req.body, { runValidators: true, new: true })
+    res.redirect(`/products`)
+  })
+)
 
-app.get('/products/:id/delete', asyncError(async (req, res, next) => {
-  const { id } = req.params
-  const product = await Product.deleteOne({ _id: id })
-  res.redirect(`/products`)
-}))
+app.get(
+  '/products/:id/delete',
+  asyncError(async (req, res, next) => {
+    const { id } = req.params
+    const product = await Product.deleteOne({ _id: id })
+    res.redirect(`/products`)
+  })
+)
 
-app.delete('/products/:id', asyncError(async (req, res, next) => {
-  const { id } = req.params
-  const product = await Product.findByIdAndDelete(id)
-  res.redirect(`/products`)
-}))
-
+app.delete(
+  '/products/:id',
+  asyncError(async (req, res, next) => {
+    const { id } = req.params
+    const product = await Product.findByIdAndDelete(id)
+    res.redirect(`/products`)
+  })
+)
 
 app.use('/*', (err, req, res, next) => {
   res.send(err)
