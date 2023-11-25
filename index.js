@@ -41,6 +41,15 @@ app.post(
   })
 )
 
+app.get(
+  '/farms/:id',
+  asyncError(async (req, res, next) => {
+    const { id } = req.params
+    const farm = await Farm.findById(id)
+    res.render('farm/show', { farm })
+  })
+)
+
 // product routes
 app.get(
   '/products',
