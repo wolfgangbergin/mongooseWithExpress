@@ -22,7 +22,6 @@ app.use(methodOverride('_method'))
 app.get(
   '/farms',
   asyncError(async (req, res, next) => {
-   
     const farms = await Farm.find({})
     res.render('farms/index', { farms })
   })
@@ -53,20 +52,24 @@ app.get(
 app.get(
   '/farms/:id',
   asyncError(async (req, res, next) => {
-   
     const { id } = req.params
-  
+
     const farm = await Farm.findById(id)
-   
+
     res.render('farms/show', { farm })
   })
 )
+
+app.get('/farms/:id/products/new',  asyncError(async (req, res, next) => {
+  const { id } = req.params
+  const farm = await Farm.findById(id)
+  res.render('products/new', { categories, farm })
+}))
 
 // product routes
 app.get(
   '/products',
   asyncError(async (req, res, next) => {
-   
     const products = await Product.find(req.query ?? {})
     res.render('products/index', { products, ...req })
   })
