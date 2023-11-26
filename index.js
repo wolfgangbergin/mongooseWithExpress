@@ -64,11 +64,48 @@ app.get(
 app.get('/farms/:id/products/new',  asyncError(async (req, res, next) => {
 
   const { id } = req.params
-  // const farm = await Farm.findById(id)
-  l(id)
-  res.render('products/new', {id})
+   const farm = await Farm.findById(id)
+  
+  res.render('farms/newFarmProduct.ejs', {id})
+}))
+
+
+
+
+
+
+
+
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
+app.post('/farms/:id/products', asyncError(async (req, res, next) => {
+ const {id} = req.params
+ const farm = await Farm.findById(id)
+ const newProduct = await new Product({...req.body}) 
+
+ 
+ newProduct.farm = farm
+ 
+ await newProduct.save()
+
+  await farm.products.push(newProduct)
+ await farm.save()
+
+
+
+res.redirect(`/farms`)
+d(farm)
 }))
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
+
+
+
+
+
+
+
 
 // product routes
 app.get(
