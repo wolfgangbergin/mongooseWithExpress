@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Product</title>
+</head>
+<body>
+    <h1>Add  A Product</h1>
+    <form action="farms/<%=id%>/products" method="POST">
+        <p>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name">
+        </p>
+        <p>
+            <label for="price">Price</label>
+            <input type="text" name="price" id="price">
+        </p>
+        <p>
+            <label for="category">Category</label>
+            <select name="category" id="category">
+                <% wolfgang.categories.forEach(element => { %>
+                     <option value="<%=element%>" <%=element === 'meat' && 'selected'  %>><%=element%></option>
+                     <%  }); %>
+ 
+        </p>
+        <br>
+        <input type="submit" value="Create">
+    </form>
+
+
+    <a href="/products"> cancel</a>
+</body>
+</html>
