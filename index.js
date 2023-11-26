@@ -64,10 +64,8 @@ l(farm)
 app.get(
   '/farms/:id/products/new',
   asyncError(async (req, res, next) => {
-    const { id } = req.params
-    const farm = await Farm.findById(id)
-
-    res.render('farms/newFarmProduct.ejs', { id })
+    const farm = await Farm.findById(req.params.id)
+    res.render('farms/newFarmProduct.ejs', { farm })
   })
 )
 
