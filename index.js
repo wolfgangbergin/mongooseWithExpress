@@ -54,8 +54,8 @@ app.get(
   asyncError(async (req, res, next) => {
     const { id } = req.params
 
-    const farm = await Farm.findById(id)
-
+    const farm = await Farm.findById(id).populate('products')
+l(farm)
     res.render('farms/show', { farm })
   })
 )
@@ -81,11 +81,8 @@ app.post(
     const newProduct = new Product({ ...req.body })
     farm.products.push(newProduct)
     newProduct.farm = farm
-
     await newProduct.save()
-
     await farm.save()
-
     res.redirect(`/farms/${farm._id}`)
   })
 )
