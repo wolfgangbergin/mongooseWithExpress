@@ -103,7 +103,8 @@ app.get(
   '/products/:id',
   asyncError(async (req, res, next) => {
     const { id } = req.params
-    const product = await Product.findById(id)
+    const product = await Product.findById(id).populate('farm')
+    d(product)
     res.render('products/show', { product })
   })
 )

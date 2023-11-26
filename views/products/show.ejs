@@ -10,7 +10,10 @@
 
     <ul>
       <li>
-        <p>price: $<%= product.price %> </p>
+        <p>price: <%= product.price %> </p>
+      </li>
+      <li>
+        <p>Farm: <%= product.farm.name %> </p>
       </li>
       <li>
         <p">category:  <a href="/products?category=<%= product.category %> "> <%= product.category %> </a> </p>
