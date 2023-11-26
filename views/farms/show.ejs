@@ -9,10 +9,17 @@
     <h1>Name: <%= farm.name %></h1>
     <p>City: <%= farm.city %></p>
     <p>Email: <%= farm.email %></p>
+    <h2>Products</h2>
     <ul>
-     
+      
+     <% farm.products.forEach(product => { %>
+      <li>
+        <a href="/products/<%= product._id %>"><%= product.name %></a>
+      </li>
+      <% }) %>
       
     </ul>
+    <h2>links</h2>
     <a href="/farms">Back to all farms</a> <br />
     <a href="/farms/<%= farm._id %>/edit">Edit</a><br />
     <a href="/farms/<%= farm._id %>/delete">wolf's Delete</a><br />
