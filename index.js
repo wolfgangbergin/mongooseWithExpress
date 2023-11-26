@@ -61,49 +61,35 @@ app.get(
 )
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-app.get('/farms/:id/products/new',  asyncError(async (req, res, next) => {
+app.get(
+  '/farms/:id/products/new',
+  asyncError(async (req, res, next) => {
+    const { id } = req.params
+    const farm = await Farm.findById(id)
 
-  const { id } = req.params
-   const farm = await Farm.findById(id)
-  
-  res.render('farms/newFarmProduct.ejs', {id})
-}))
-
-
-
-
-
-
-
-
+    res.render('farms/newFarmProduct.ejs', { id })
+  })
+)
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
-app.post('/farms/:id/products', asyncError(async (req, res, next) => {
- const {id} = req.params
- const farm = await Farm.findById(id)
- const newProduct =  new Product({...req.body}) 
- farm.products.push(newProduct)
- newProduct.farm = farm
- 
- await newProduct.save()
+app.post(
+  '/farms/:id/products',
+  asyncError(async (req, res, next) => {
+    const { id } = req.params
+    const farm = await Farm.findById(id)
+    const newProduct = new Product({ ...req.body })
+    farm.products.push(newProduct)
+    newProduct.farm = farm
 
- 
- await farm.save()
+    await newProduct.save()
 
- res.send(farm)
+    await farm.save()
 
-
-}))
+    res.redirect(`/farms/${farm._id}`)
+  })
+)
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-
-
-
-
-
-
-
-
 
 // product routes
 app.get(

@@ -13,11 +13,10 @@
      
       
     </ul>
-    <a href="/farms">Back to all farms</a>
-    <a href="/farms/<%= farm._id %>/edit">Edit</a>
-    <a href="/farms/<%= farm._id %>/delete">wolf's Delete</a>
-    <form action="/farms/<%= farm._id %>?_method=DELETE" method="POST">
-      <input type="submit" value="Delete" />
-    </form>
+    <a href="/farms">Back to all farms</a> <br />
+    <a href="/farms/<%= farm._id %>/edit">Edit</a><br />
+    <a href="/farms/<%= farm._id %>/delete">wolf's Delete</a><br />
+    <a href="/farms/<%= farm._id %>/products/new">add new Product</a>
+   
   </body>
 </html>
