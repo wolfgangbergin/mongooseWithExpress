@@ -13,7 +13,7 @@
         <p>price: <%= product.price %> </p>
       </li>
       <li>
-        <p>Farm: <a href="/farms/<%=//product.farm._id%> "> <%= //product.farm.name %>  </a> </p>
+        <p>Farm: <a href="/farms/<%=product.farm._id%> "> <%= product.farm.name %>  </a> </p>
       </li>
       <li>
         <p">category:  <a href="/products?category=<%= product.category %> "> <%= product.category %> </a> </p>
@@ -22,9 +22,7 @@
     </ul>
     <a href="/products">Back to all products</a> <br />
     <a href="/products/<%= product._id %>/edit">Edit</a><br />
-    <a href="/products/<%= product._id %>/delete">wolf's Delete</a><br />
-    <form action="/products/<%= product._id %>?_method=DELETE" method="POST"><br />
-      <input type="submit" value="Delete" />
-    </form>
+    <a href="/products/<%= product._id %>/delete"> Delete Product</a><br />
+   
   </body>
 </html>
