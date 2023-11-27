@@ -55,7 +55,7 @@ app.get(
     const { id } = req.params
 
     const farm = await Farm.findById(id).populate('products')
-l(farm)
+
     res.render('farms/show', { farm })
   })
 )
