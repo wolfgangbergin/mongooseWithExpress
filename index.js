@@ -46,7 +46,7 @@ app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res, next) => {
     const { _id } = req.params
-    // const product = await Farm.deleteOne({ _id: id })
+  
      const product = await Farm.findByIdAndDelete(req.params._id)
 
     res.redirect(`/farms`)
@@ -54,11 +54,11 @@ app.get(
 )
 
 app.get(
-  '/farms/:id',
+  '/farms/:_id',
   asyncError(async (req, res, next) => {
-    const { id } = req.params
+    const { _id } = req.params
 
-    const farm = await Farm.findById(id).populate('products')
+    const farm = await Farm.findById(_id).populate('products')
 
     res.render('farms/show', { farm })
   })
@@ -66,9 +66,9 @@ app.get(
 
 
 app.get(
-  '/farms/:id/products/new',
+  '/farms/:_id/products/new',
   asyncError(async (req, res, next) => {
-    const farm = await Farm.findById(req.params.id)
+    const farm = await Farm.findById(req.params._id)
     res.render('farms/newFarmProduct.ejs', { farm })
   })
 )
@@ -76,10 +76,10 @@ app.get(
 
 
 app.post(
-  '/farms/:id/products',
+  '/farms/:_id/products',
   asyncError(async (req, res, next) => {
-    const { id } = req.params
-    const farm = await Farm.findById(id)
+    const { _id } = req.params
+    const farm = await Farm.findById(_id)
     const newProduct = new Product({ ...req.body })
     farm.products.push(newProduct)
     newProduct.farm = farm
@@ -111,10 +111,10 @@ app.get('/products/new', (req, res) => {
 })
 
 app.get(
-  '/products/:id',
+  '/products/:_id',
   asyncError(async (req, res, next) => {
-    const { id } = req.params
-    const product = await Product.findById(id).populate('farm')
+    const { _id } = req.params
+    const product = await Product.findById(_id).populate('farm')
     
     res.render('products/show', { product })
   })
@@ -129,37 +129,37 @@ app.post(
   })
 )
 app.get(
-  '/products/:id/edit',
+  '/products/:_id/edit',
   asyncError(async (req, res, next) => {
-    const { id } = req.params
-    const product = await Product.findById(id)
+    const { _id } = req.params
+    const product = await Product.findById(_id)
     res.render('products/edit', { product })
   })
 )
 
 app.put(
-  '/products/:id',
+  '/products/:_id',
   asyncError(async (req, res, next) => {
-    const { id } = req.params
-    const product = await Product.findByIdAndUpdate(id, req.body, { runValidators: true, new: true })
+    const { _id } = req.params
+    const product = await Product.findByIdAndUpdate(_id, req.body, { runValidators: true, new: true })
     res.redirect(`/products`)
   })
 )
 
 app.get(
-  '/products/:id/delete',
+  '/products/:_id/delete',
   asyncError(async (req, res, next) => {
-    const { id } = req.params
-    const product = await Product.deleteOne({ _id: id })
+    const { _id } = req.params
+    const product = await Product.deleteOne({ _id: _id })
     res.redirect(`/products`)
   })
 )
 
 app.delete(
-  '/products/:id',
+  '/products/:_id',
   asyncError(async (req, res, next) => {
-    const { id } = req.params
-    const product = await Product.findByIdAndDelete(id)
+    const { _id } = req.params
+    const product = await Product.findByIdAndDelete(_id)
     res.redirect(`/products`)
   })
 )
