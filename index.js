@@ -131,18 +131,18 @@ app.put(
 app.get(
   '/products/:_id/delete',
   asyncError(async (req, res) => {
-    const product = await Product.deleteOne(req.params._id)
-    res.redirect(`/products`)
-  })
-)
-
-app.delete(
-  '/products/:_id',
-  asyncError(async (req, res) => {
     const product = await Product.findByIdAndDelete(req.params._id)
     res.redirect(`/products`)
   })
 )
+
+// app.delete(
+//   '/products/:_id',
+//   asyncError(async (req, res) => {
+//     const product = await Product.findByIdAndDelete(req.params._id)
+//     res.redirect(`/products`)
+//   })
+// )
 
 app.use('/*', (err, req, res) => {
   res.send(err)
