@@ -8,6 +8,8 @@ const methodOverride = require('method-override')
 const asyncError = require('./asyncError/asyncError')
 const Farm = require('./models/farm')
 
+
+
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
   .then(() => console.log('Connected to MongoDB...🏁🏁🏁'))
@@ -44,7 +46,9 @@ app.get(
   '/farms/:id/delete',
   asyncError(async (req, res, next) => {
     const { id } = req.params
-    const product = await Farm.deleteOne({ _id: id })
+    // const product = await Farm.deleteOne({ _id: id })
+     const product = await Farm.findByIdAndDelete({ _id: id })
+
     res.redirect(`/farms`)
   })
 )
@@ -104,7 +108,6 @@ app.get(
   asyncError(async (req, res, next) => {
     const { id } = req.params
     const product = await Product.findById(id).populate('farm')
-    d(product)
     res.render('products/show', { product })
   })
 )
