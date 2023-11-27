@@ -108,6 +108,7 @@ app.get(
   asyncError(async (req, res, next) => {
     const { id } = req.params
     const product = await Product.findById(id).populate('farm')
+    
     res.render('products/show', { product })
   })
 )
