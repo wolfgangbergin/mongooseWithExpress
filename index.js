@@ -43,11 +43,11 @@ app.post(
 )
 
 app.get(
-  '/farms/:id/delete',
+  '/farms/:_id/delete',
   asyncError(async (req, res, next) => {
-    const { id } = req.params
+    const { _id } = req.params
     // const product = await Farm.deleteOne({ _id: id })
-     const product = await Farm.findByIdAndDelete({ _id: id })
+     const product = await Farm.findByIdAndDelete(req.params._id)
 
     res.redirect(`/farms`)
   })
@@ -64,7 +64,7 @@ app.get(
   })
 )
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
 app.get(
   '/farms/:id/products/new',
   asyncError(async (req, res, next) => {
@@ -73,7 +73,7 @@ app.get(
   })
 )
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
 
 app.post(
   '/farms/:id/products',
@@ -88,7 +88,14 @@ app.post(
     res.redirect(`/farms/${farm._id}`)
   })
 )
+
+
+
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
+
 
 // product routes
 app.get(
