@@ -21,7 +21,7 @@ app.use(methodOverride('_method'))
 
 app.get(
   '/farms',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const farms = await Farm.find({})
     res.render('farms/index', { farms })
   })
@@ -33,7 +33,7 @@ app.get('/farms/new', (req, res) => {
 
 app.post(
   '/farms',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const newFarm = new Farm(req.body)
     await newFarm.save()
     res.redirect(`/farms`)
@@ -42,7 +42,7 @@ app.post(
 
 app.get(
   '/farms/:_id/delete',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const product = await Farm.findByIdAndDelete(req.params._id)
     res.redirect(`/farms`)
   })
@@ -50,7 +50,7 @@ app.get(
 
 app.get(
   '/farms/:_id',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const farm = await Farm.findById(req.params._id).populate('products')
 
     res.render('farms/show', { farm })
@@ -59,7 +59,7 @@ app.get(
 
 app.get(
   '/farms/:_id/products/new',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const farm = await Farm.findById(req.params._id)
     res.render('farms/newFarmProduct.ejs', { farm })
   })
@@ -67,7 +67,7 @@ app.get(
 
 app.post(
   '/farms/:_id/products',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const farm = await Farm.findById(req.params._id)
     const newProduct = new Product({ ...req.body })
     farm.products.push(newProduct)
@@ -85,7 +85,7 @@ app.post(
 // product routes
 app.get(
   '/products',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const products = await Product.find(req.query ?? {})
     res.render('products/index', { products, ...req })
   })
@@ -97,7 +97,7 @@ app.get('/products/new', (req, res) => {
 
 app.get(
   '/products/:_id',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const product = await Product.findById(req.params._id).populate('farm')
 
     res.render('products/show', { product })
@@ -106,7 +106,7 @@ app.get(
 
 app.post(
   '/products',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const newProduct = new Product(req.body)
     await newProduct.save()
     res.redirect(`/products`)
@@ -114,7 +114,7 @@ app.post(
 )
 app.get(
   '/products/:_id/edit',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const product = await Product.findById(req.params._id)
     res.render('products/edit', { product })
   })
@@ -122,7 +122,7 @@ app.get(
 
 app.put(
   '/products/:_id',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const product = await Product.findByIdAndUpdate(req.params._id, req.body, { runValidators: true, new: true })
     res.redirect(`/products`)
   })
@@ -130,7 +130,7 @@ app.put(
 
 app.get(
   '/products/:_id/delete',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const product = await Product.deleteOne(req.params._id)
     res.redirect(`/products`)
   })
@@ -138,13 +138,13 @@ app.get(
 
 app.delete(
   '/products/:_id',
-  asyncError(async (req, res, next) => {
+  asyncError(async (req, res) => {
     const product = await Product.findByIdAndDelete(req.params._id)
     res.redirect(`/products`)
   })
 )
 
-app.use('/*', (err, req, res, next) => {
+app.use('/*', (err, req, res) => {
   res.send(err)
 })
 
