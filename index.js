@@ -44,6 +44,15 @@ app.post(
 
 
 app.get(
+  '/farms/:_id/edit',
+  asyncError(async (req, res) => {
+    const farm = await Farm.findByIdAndDelete(req.params._id)
+    res.render('farms/edit', { farm })
+  })
+)
+
+
+app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
     const product = await Farm.findByIdAndDelete(req.params._id)

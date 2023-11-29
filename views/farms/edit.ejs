@@ -1,9 +1,9 @@
 <% layout('layouts/boilerplate') %>
-    <h1>Add  A Farm</h1>
+    <h1>Edit  A Farm</h1>
     <form action="/farms" method="POST">
         <p>
             <label for="name">Name</label>
-            <input type="text" name="name" id="name" placeholder="name" value="test">
+            <input type="text" name="name" id="name" placeholder="name" value="<%=farm.name%>">
         </p>
         <p>
             <label for="city">City</label>

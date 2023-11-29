@@ -14,7 +14,7 @@ const farmSchema = new Schema({
   },
   email: {
     type: String,
-    required: [true, 'Email is required'],
+   
   },
   products: [
     {
