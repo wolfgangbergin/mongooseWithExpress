@@ -7,6 +7,7 @@ const Product = require('./models/product')
 const methodOverride = require('method-override')
 const asyncError = require('./asyncError/asyncError')
 const Farm = require('./models/farm')
+const ejsMate = require('ejs-mate')
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
