@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Product</title>
-</head>
-<body>
-    <h1> <%=farm.name%></h1>
+<% layout('layouts/boilerplate') %>
+    <h1>Farm Name: <%=farm.name%></h1>
     <h2>Add  A Product to: <%=farm.name%></h2>
     <form action="/farms/<%=farm._id%>/products" method="POST">
         <p>
@@ -32,5 +25,3 @@
 
   
     <a href="/farms/<%=farm._id%>">back</a>
-</body>
-</html>
