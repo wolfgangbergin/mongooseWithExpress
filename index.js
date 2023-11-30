@@ -34,38 +34,34 @@ app.get('/farms/new', (req, res) => {
 })
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
-
 app.post(
   '/farms',
   asyncError(async (req, res) => {
-    
     const newFarm = new Farm(req.body)
-    
+
     await newFarm.save()
     res.redirect(`/farms`)
   })
 )
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-
 
 app.post(
   '/farms/:_id',
   asyncError(async (req, res) => {
     await Farm.findByIdAndDelete(req.params._id)
     const newFarm = new Farm(req.body)
-    
+
     await newFarm.save()
     res.redirect(`/farms`)
   })
 )
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
-
 app.get(
   '/farms/:_id/edit',
   asyncError(async (req, res) => {
     const farm = await Farm.findById(req.params._id)
-    
+
     res.render('farms/edit', { farm })
   })
 )
@@ -175,7 +171,7 @@ app.get(
 //   })
 // )
 
-app.use(( req, res, next) => {
+app.use((req, res, next) => {
   //res.send('error')
   // err.message = 'Something went wrong'
   // l(err.message)
@@ -185,12 +181,11 @@ app.use(( req, res, next) => {
 })
 
 // app.use((err, req, res, next) => {
- 
+
 //   if (!err.message) {err.message = 'Something went wrong',
 //   err.statusCode = 515}
 //     res.status(err.statusCode).render('error', { err })
 //   })
-  
 
 app.listen(3000, () => {
   l('listening on port 3000')
