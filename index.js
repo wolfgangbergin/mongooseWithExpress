@@ -36,7 +36,9 @@ app.get('/farms/new', (req, res) => {
 app.post(
   '/farms',
   asyncError(async (req, res) => {
+    d(req.body)
     const newFarm = new Farm(req.body)
+    
     await newFarm.save()
     res.redirect(`/farms`)
   })
@@ -47,6 +49,7 @@ app.get(
   '/farms/:_id/edit',
   asyncError(async (req, res) => {
     const farm = await Farm.findByIdAndDelete(req.params._id)
+    l(farm)
     res.render('farms/edit', { farm })
   })
 )
