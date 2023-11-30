@@ -34,9 +34,9 @@ app.get('/farms/new', (req, res) => {
 })
 
 app.post(
-  '/farms',
+  '/farms/:_id',
   asyncError(async (req, res) => {
-    d(req.body)
+    d(req.params._id)
     const newFarm = new Farm(req.body)
     
     await newFarm.save()
@@ -158,9 +158,22 @@ app.get(
 //   })
 // )
 
-app.use('/*', (err, req, res) => {
-  res.send(err)
+app.use(( req, res, next) => {
+  //res.send('error')
+  // err.message = 'Something went wrong'
+  // l(err.message)
+  const err = new Error('wolf Not Found')
+  err.statusCode = 404
+  res.render('error', { err })
 })
+
+// app.use((err, req, res, next) => {
+ 
+//   if (!err.message) {err.message = 'Something went wrong',
+//   err.statusCode = 515}
+//     res.status(err.statusCode).render('error', { err })
+//   })
+  
 
 app.listen(3000, () => {
   l('listening on port 3000')
