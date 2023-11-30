@@ -32,6 +32,20 @@ app.get(
 app.get('/farms/new', (req, res) => {
   res.render('farms/new')
 })
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
+
+app.post(
+  '/farms',
+  asyncError(async (req, res) => {
+    
+    const newFarm = new Farm(req.body)
+    
+    await newFarm.save()
+    res.redirect(`/farms`)
+  })
+)
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
 app.post(
   '/farms/:_id',
@@ -43,16 +57,18 @@ app.post(
     res.redirect(`/farms`)
   })
 )
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
 
 app.get(
   '/farms/:_id/edit',
   asyncError(async (req, res) => {
     const farm = await Farm.findById(req.params._id)
+    
     res.render('farms/edit', { farm })
   })
 )
-
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
 app.get(
   '/farms/:_id/delete',
