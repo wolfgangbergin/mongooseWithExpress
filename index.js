@@ -51,7 +51,7 @@ app.post(
 app.post(
   '/farms/:_id',
   asyncError(async (req, res) => {
-    d(req.params._id)
+    await Farm.findByIdAndDelete(req.params._id)
     const newFarm = new Farm(req.body)
     
     await newFarm.save()
@@ -74,7 +74,7 @@ app.get(
 app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
-    const product = await Farm.findByIdAndDelete(req.params._id)
+    await Farm.findByIdAndDelete(req.params._id)
     res.redirect(`/farms`)
   })
 )
