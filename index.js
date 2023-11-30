@@ -48,8 +48,7 @@ app.post(
 app.get(
   '/farms/:_id/edit',
   asyncError(async (req, res) => {
-    const farm = await Farm.findByIdAndDelete(req.params._id)
-    l(farm)
+    const farm = await Farm.findById(req.params._id)
     res.render('farms/edit', { farm })
   })
 )
