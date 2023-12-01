@@ -38,7 +38,6 @@ app.post(
   '/farms',
   asyncError(async (req, res) => {
     const newFarm = new Farm(req.body)
-
     await newFarm.save()
     res.redirect(`/farms`)
   })
@@ -61,7 +60,6 @@ app.get(
   '/farms/:_id/edit',
   asyncError(async (req, res) => {
     const farm = await Farm.findById(req.params._id)
-
     res.render('farms/edit', { farm })
   })
 )
@@ -70,7 +68,8 @@ app.get(
 app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
-    await Farm.findByIdAndDelete(req.params._id)
+   const temp = await Farm.findByIdAndDelete(req.params._id)
+    await Product.deleteMany({ _id: { $in: temp.products } })
     res.redirect(`/farms`)
   })
 )
