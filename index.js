@@ -49,6 +49,9 @@ app.post(
   asyncError(async (req, res) => {
     const temp = await Farm.findByIdAndDelete(req.params._id)
     const newFarm = new Farm(req.body)
+    l(newFarm._id)
+    l(temp.products[0].farm = newFarm._id)
+    l(temp.products[0].populate('farm'))
     newFarm.products = [...temp.products]
     await newFarm.save()
     res.redirect(`/farms`)
