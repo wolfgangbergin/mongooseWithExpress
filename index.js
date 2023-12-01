@@ -12,7 +12,9 @@ const ejsMate = require('ejs-mate')
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
   .then(() => console.log('Connected to MongoDB...🏁🏁🏁'))
-  .catch((err) => console.error('Could not connect to MongoDB...🤬🤬🤬', err))
+  .catch((err) =>
+    console.error('Could not connect to MongoDB...🤬🤬🤬', err)
+  )
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
@@ -49,7 +51,9 @@ app.post(
   asyncError(async (req, res) => {
     const oldFarm = await Farm.findByIdAndDelete(req.params._id)
     const newFarm = new Farm(req.body)
-  oldFarm.products[0]
+    oldFarm.products[0].farm = newFarm._id
+    l(oldFarm.products[0].farm)
+    l(newFarm._id)
     newFarm.products = [...oldFarm.products]
     await newFarm.save()
     res.redirect(`/farms`)
@@ -69,7 +73,7 @@ app.get(
 app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
-   const temp = await Farm.findByIdAndDelete(req.params._id)
+    const temp = await Farm.findByIdAndDelete(req.params._id)
     await Product.deleteMany({ _id: { $in: temp.products } })
     res.redirect(`/farms`)
   })
@@ -150,7 +154,11 @@ app.get(
 app.put(
   '/products/:_id',
   asyncError(async (req, res) => {
-    const product = await Product.findByIdAndUpdate(req.params._id, req.body, { runValidators: true, new: true })
+    const product = await Product.findByIdAndUpdate(
+      req.params._id,
+      req.body,
+      { runValidators: true, new: true }
+    )
     res.redirect(`/products`)
   })
 )
