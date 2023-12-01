@@ -47,11 +47,10 @@ app.post(
 app.post(
   '/farms/:_id',
   asyncError(async (req, res) => {
-    const farm = await Farm.findByIdAndDelete(req.params._id)
+    const oldFarm = await Farm.findByIdAndDelete(req.params._id)
     const newFarm = new Farm(req.body)
-    l(newFarm._id)
-    l(farm.products[0].farm = newFarm._id)
-    newFarm.products = [...farm.products]
+  oldFarm.products[0]
+    newFarm.products = [...oldFarm.products]
     await newFarm.save()
     res.redirect(`/farms`)
   })
