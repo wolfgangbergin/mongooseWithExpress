@@ -66,7 +66,7 @@ app.post(
 
     l(newFarm.products)
 
-    // await Product.deleteMany({ _id: { $in: oldFarm.products } })
+     await Product.deleteMany({ _id: { $in: oldFarm.products } })
 
     await newFarm.save()
     res.redirect(`/farms`)
