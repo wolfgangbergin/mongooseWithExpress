@@ -49,25 +49,20 @@ app.post(
 app.post(
   '/farms/:_id',
   asyncError(async (req, res) => {
-    l('//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//')
     const newFarm = new Farm(req.body)
     const oldFarm = await Farm.findByIdAndDelete(req.params._id)
     const tempProductsArray1 = oldFarm.products
     tempProductsArray1.forEach(async (product) => {
       const kimbo = await Product.findById(product).populate()
-
       const newProduct = new Product({
         name: kimbo.name,
         price: kimbo.price,
         category: kimbo.category,
       })
       newFarm.products.push(newProduct)
-
       await newProduct.save()
     })
-
     await Product.deleteMany({ _id: { $in: oldFarm.products } })
-
     await newFarm.save()
     res.redirect(`/farms`)
   })
