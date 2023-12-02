@@ -53,20 +53,21 @@ app.post(
     const newFarm = new Farm(req.body)
     const oldFarm = await Farm.findByIdAndDelete(req.params._id)
     const tempProductsArray1 = oldFarm.products
-    tempProductsArray1.forEach(async(product)=>{
-      const newProduct = new Product({ name: 'banana', price: '99' })
+    tempProductsArray1.forEach(async (product) => {
+      const newProduct = new Product({
+        name: 'product.name',
+        price: product.price,
+        category: product.category,
+      })
       newFarm.products.push(newProduct)
-      
+
       await newProduct.save()
-      
     })
 
-   l(newFarm.products)
+    l(newFarm.products)
 
     // await Product.deleteMany({ _id: { $in: oldFarm.products } })
 
-
-   
     await newFarm.save()
     res.redirect(`/farms`)
   })
@@ -142,7 +143,7 @@ app.get(
   '/products/:_id',
   asyncError(async (req, res) => {
     const product = await Product.findById(req.params._id).populate('farm')
-    
+
     res.render('products/show', { product })
   })
 )
