@@ -50,12 +50,12 @@ app.post(
   '/farms/:_id',
   asyncError(async (req, res) => {
     const oldFarm = await Farm.findByIdAndDelete(req.params._id)
-    const newFarm = new Farm(req.body)
-    // oldFarm.products[0].farm = newFarm._id
-    
+   const temp3 = await Product.deleteMany({ _id: { $in: temp.products } })
+   
+   const newFarm = new Farm(req.body)
    
     newFarm.products = [...oldFarm.products]
-    l(newFarm.products[0].farm = newFarm)
+  
     await Product.updateMany(
       { _id: { $in: newFarm.products } },
       { farm: newFarm._id }
