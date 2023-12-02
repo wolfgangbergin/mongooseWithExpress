@@ -53,13 +53,15 @@ app.post(
     const newFarm = new Farm(req.body)
     const oldFarm = await Farm.findByIdAndDelete(req.params._id)
     const tempProductsArray1 = oldFarm.products
-    const test1 = tempProductsArray1.map(async(product)=>{
-      await newFarm.products.push(product)
-      // await product.save()
-      return product
+    tempProductsArray1.forEach(async(product)=>{
+      const newProduct = new Product({ name: 'banana', price: '99' })
+      newFarm.products.push(newProduct)
+      
+      await newProduct.save()
+      
     })
 
-    l(test1)
+   l(newFarm.products)
 
     // await Product.deleteMany({ _id: { $in: oldFarm.products } })
 
