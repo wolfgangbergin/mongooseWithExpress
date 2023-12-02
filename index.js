@@ -51,10 +51,15 @@ app.post(
   asyncError(async (req, res) => {
     const oldFarm = await Farm.findByIdAndDelete(req.params._id)
     const newFarm = new Farm(req.body)
-    oldFarm.products[0].farm = newFarm
-    l(oldFarm.products[0].farm)
-    l(newFarm._id)
+    // oldFarm.products[0].farm = newFarm._id
+    
+   
     newFarm.products = [...oldFarm.products]
+    l(newFarm.products[0].farm = newFarm)
+    await Product.updateMany(
+      { _id: { $in: newFarm.products } },
+      { farm: newFarm._id }
+    )
     await newFarm.save()
     res.redirect(`/farms`)
   })
@@ -130,7 +135,7 @@ app.get(
   '/products/:_id',
   asyncError(async (req, res) => {
     const product = await Product.findById(req.params._id).populate('farm')
-l(product)
+    l(product)
     res.render('products/show', { product })
   })
 )
