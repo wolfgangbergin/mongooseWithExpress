@@ -8,14 +8,15 @@ globalThis.wolfgang.Product = require('./models/product')
 globalThis.wolfgang.categories = ['fruit', 'vegetable', 'dairy', 'meat']
 
 globalThis.wolfgang.deleteFarmFunc = async (req, res, save) => {
+    l('///////////////////////////////////////////////')
     const oldFarm = await wolfgang.Farm.findById(req.params._id)
     const newFarm = new wolfgang.Farm(req.body)
      if (save) {
     
     
 
-    oldFarm.products.forEach( (product) => {
-      const kimbo =  wolfgang.Product.findById(product).populate()
+    oldFarm.products.forEach( async(product) => {
+      const kimbo =  await wolfgang.Product.findById(product).populate()
 
       const newProduct = new wolfgang.Product({
         name: kimbo?.name ?? 'wolfMan',
