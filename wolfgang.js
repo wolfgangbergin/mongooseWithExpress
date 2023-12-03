@@ -23,13 +23,13 @@ globalThis.wolfgang.deleteFarmFunc = async (req, res, save) => {
         category: kimbo?.category ?? 'wolfMan',
       })
        newFarm.products.push(newProduct._id)
-      l(newFarm.products )
+      l('1' )
        newProduct.save()
      
     })
-   
+   l('2')
   }
-  l(newFarm.products )
+  l('3' )
   await newFarm.save()
   await wolfgang.Farm.findByIdAndDelete(req.params._id)
    await wolfgang.Product.deleteMany({ _id: { $in: oldFarm.products } })
