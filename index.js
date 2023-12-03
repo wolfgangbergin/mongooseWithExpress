@@ -48,28 +48,7 @@ app.post(
 
 app.post(
   '/farms/:_id',
-  asyncError(async (req, res) => {
-    const oldFarm = await Farm.findById(req.params._id)
-    const newFarm = new Farm(req.body)
-
-    oldFarm.products.forEach(async (product) => {
-      const { name, price, category } = await Product.findById(
-        product
-      ).populate()
-
-      const newProduct = new Product({
-        name,
-        price,
-        category,
-      })
-      newFarm.products.push(newProduct)
-      await newProduct.save()
-    })
-    await Farm.findByIdAndDelete(req.params._id)
-    // await Product.deleteMany({ _id: { $in: oldFarm.products } })
-    await newFarm.save()
-    res.redirect(`/farms`)
-  })
+  asyncError(wolfgang.deleteFarmFunc)
 )
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
@@ -78,10 +57,8 @@ app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
     const oldFarm = await Farm.findByIdAndDelete(req.params._id)
-  
 
-    
-    // await Product.deleteMany({ _id: { $in: oldFarm.products } })
+    await Product.deleteMany({ _id: { $in: oldFarm.products } })
     res.redirect(`/farms`)
   })
 )
