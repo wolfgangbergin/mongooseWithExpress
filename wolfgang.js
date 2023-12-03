@@ -13,9 +13,8 @@ globalThis.wolfgang.deleteFarmFunc = async (req, res, save) => {
     const newFarm = new wolfgang.Farm(req.body)
      if (save) {
     
-    
 
-    oldFarm.products.forEach( async(product) => {
+    var test1 = await oldFarm.products.map( async(product) => {
       const kimbo =  await wolfgang.Product.findById(product).populate()
 
       const newProduct = new wolfgang.Product({
@@ -26,10 +25,13 @@ globalThis.wolfgang.deleteFarmFunc = async (req, res, save) => {
        newFarm.products.push(newProduct._id)
       l('1' )
        newProduct.save()
-     
+     return 'banana'
     })
    l('2')
   }
+  l(test1)
+  var test2 = await test1
+  l(test2)
   l('3' )
   await newFarm.save()
   await wolfgang.Farm.findByIdAndDelete(req.params._id)
