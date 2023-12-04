@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const Product = require('./models/product')
 const methodOverride = require('method-override')
 const asyncError = require('./asyncError/asyncError')
-const Farm = require('./models/farm')
+
 const ejsMate = require('ejs-mate')
 
 mongoose
@@ -21,12 +21,12 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-// Farm routes
+// wolf.Farm routes
 
 app.get(
   '/farms',
   asyncError(async (req, res) => {
-    const farms = await Farm.find({})
+    const farms = await wolf.Farm.find({})
     res.render('farms/index', { farms })
   })
 )
@@ -40,7 +40,7 @@ app.get('/farms/new', (req, res) => {
 app.post(
   '/farms',
   asyncError(async (req, res) => {
-    const newFarm = new Farm(req.body)
+    const newFarm = new wolf.Farm(req.body)
     await newFarm.save()
     res.redirect(`/farms`)
   })
@@ -59,7 +59,7 @@ app.post(
         l(result)
       })
 
-    // await Farm.findByIdAndDelete(req.params._id)
+    // await wolf.Farm.findByIdAndDelete(req.params._id)
     // const deleteM = await Product.deleteMany({
     //   _id: { $in: oldFarm.products },
     // }).then((result) => {
@@ -78,7 +78,7 @@ app.post(
 app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
-    const oldFarm = await Farm.findByIdAndDelete(req.params._id)
+    const oldFarm = await wolf.Farm.findByIdAndDelete(req.params._id)
 
     await Product.deleteMany({ _id: { $in: oldFarm.products } })
     res.redirect(`/farms`)
@@ -90,7 +90,7 @@ app.get(
 app.get(
   '/farms/:_id/edit',
   asyncError(async (req, res) => {
-    const farm = await Farm.findById(req.params._id)
+    const farm = await wolf.Farm.findById(req.params._id)
     res.render('farms/edit', { farm })
   })
 )
@@ -99,7 +99,7 @@ app.get(
 app.get(
   '/farms/:_id',
   asyncError(async (req, res) => {
-    const farm = await Farm.findById(req.params._id).populate('products')
+    const farm = await wolf.Farm.findById(req.params._id).populate('products')
 
     res.render('farms/show', { farm })
   })
@@ -108,7 +108,7 @@ app.get(
 app.get(
   '/farms/:_id/products/new',
   asyncError(async (req, res) => {
-    const farm = await Farm.findById(req.params._id)
+    const farm = await wolf.Farm.findById(req.params._id)
     res.render('farms/newFarmProduct.ejs', { farm })
   })
 )
@@ -116,7 +116,7 @@ app.get(
 app.post(
   '/farms/:_id/products',
   asyncError(async (req, res) => {
-    const farm = await Farm.findById(req.params._id)
+    const farm = await wolf.Farm.findById(req.params._id)
     const newProduct = new Product({ ...req.body })
     farm.products.push(newProduct)
     newProduct.farm = farm
