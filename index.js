@@ -31,7 +31,6 @@ app.get(
   })
 )
 
-
 app.get('/farms/new', (req, res) => {
   res.render('farms/new')
 })
@@ -47,31 +46,13 @@ app.post(
 )
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
-
 app.post(
   '/farms/:_id',
   asyncError(async (req, res) => {
-   
+    await wolf.testFunc(req, res)
 
-   await wolf
-      .testFunc( req, res)
-      .then((result) => {
-        l(result)
-      })
-
-    // await wolf.Farm.findByIdAndDelete(req.params._id)
-    // const deleteM = await Product.deleteMany({
-    //   _id: { $in: oldFarm.products },
-    // }).then((result) => {
-    //   l(result)
-    // })
-
-    // l('2')
-    // await newFarm.save()
-    // res.redirect(`/farms`)
   })
 )
-
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
@@ -99,7 +80,9 @@ app.get(
 app.get(
   '/farms/:_id',
   asyncError(async (req, res) => {
-    const farm = await wolf.Farm.findById(req.params._id).populate('products')
+    const farm = await wolf.Farm.findById(req.params._id).populate(
+      'products'
+    )
 
     res.render('farms/show', { farm })
   })
