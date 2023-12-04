@@ -49,8 +49,8 @@ app.post(
 app.post(
   '/farms/:_id',
   asyncError(async (req, res, ) => {
-    await wolf.testFunc(req, res, true)
-    res.redirect(`/farms`)
+    const newID = await wolf.testFunc(req, res, true)
+    res.redirect(`/farms/${newID}`)
   })
   
 )
