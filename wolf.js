@@ -20,7 +20,6 @@ globalThis.wolf.doSomethingAsync = async (product, newFarm) => {
     })
     newFarm.products.push(newProduct)
     await newProduct.save()
-    l('1')
 
     resolve()
   })
@@ -29,21 +28,19 @@ globalThis.wolf.doSomethingAsync = async (product, newFarm) => {
 globalThis.wolf.testFunc = async (req, res, save) => {
   const oldFarm = await wolf.Farm.findById(req.params._id)
   if (save) {
-  
-  const newFarm = new wolf.Farm(req.body)
-  await Promise.all(
-    oldFarm.products.map(async (product) => {
-      await wolf.doSomethingAsync(product, newFarm)
-    })
-  )
-  await newFarm.save()
-}
+    const newFarm = new wolf.Farm(req.body)
+    await Promise.all(
+      oldFarm.products.map(async (product) => {
+        await wolf.doSomethingAsync(product, newFarm)
+      })
+    )
+    await newFarm.save()
+  }
   await wolf.Farm.findByIdAndDelete(req.params._id)
   await wolf.Product.deleteMany({
     _id: { $in: oldFarm.products },
   })
-  res.redirect(`/products`)
-  l('2')
+ 
 }
 
 exports

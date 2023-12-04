@@ -50,8 +50,9 @@ app.post(
   '/farms/:_id',
   asyncError(async (req, res, ) => {
     await wolf.testFunc(req, res, true)
-
+    res.redirect(`/farms`)
   })
+  
 )
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
@@ -60,6 +61,7 @@ app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
     await wolf.testFunc(req, res, false)
+    res.redirect(`/farms`)
   })
 )
 
