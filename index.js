@@ -53,27 +53,25 @@ app.post(
     const oldFarm = await Farm.findById(req.params._id)
     const newFarm = new Farm(req.body)
 
-    oldFarm.products.forEach(async (product) => {
-      const { name, price, category } = await Product.findById(
-        product
-      ).populate()
-
-      const newProduct = new Product({
-        name,
-        price,
-        category,
+    let result = await wolfgang
+      .testFunc(oldFarm, newFarm, req, res)
+      .then((result) => {
+        l(result)
       })
-      newFarm.products.push(newProduct)
-      await newProduct.save()
-      l('1')
-    })
-    await Farm.findByIdAndDelete(req.params._id)
-     await Product.deleteMany({ _id: { $in: oldFarm.products } })
-     l('2')
-    await newFarm.save()
-    res.redirect(`/farms`)
+
+    // await Farm.findByIdAndDelete(req.params._id)
+    // const deleteM = await Product.deleteMany({
+    //   _id: { $in: oldFarm.products },
+    // }).then((result) => {
+    //   l(result)
+    // })
+
+    // l('2')
+    // await newFarm.save()
+    // res.redirect(`/farms`)
   })
 )
+
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
@@ -81,7 +79,7 @@ app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
     const oldFarm = await Farm.findByIdAndDelete(req.params._id)
-  
+
     await Product.deleteMany({ _id: { $in: oldFarm.products } })
     res.redirect(`/farms`)
   })

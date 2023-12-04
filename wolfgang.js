@@ -39,6 +39,34 @@ globalThis.wolfgang.deleteFarmFunc = async (req, res, save) => {
   res.redirect(`/farms`)
 }
 
+globalThis.wolfgang.testFunc = async (oldFarm, newFarm, req, res) => {
+  let count = 0
+  oldFarm.products.forEach(async (product) => {
+    const { name, price, category } = await wolfgang.Product.findById(
+      product
+    ).populate()
 
+    const newProduct = new wolfgang.Product({
+      name,
+      price,
+      category,
+    })
+    newFarm.products.push(newProduct)
+    await newProduct.save()
+    l('1')
+    count++
+    if (count === oldFarm.products.length) {
+      await newFarm.save()
+      await wolfgang.Farm.findByIdAndDelete(req.params._id)
+      await wolfgang.Product.deleteMany({
+        _id: { $in: oldFarm.products },
+      })
+      res.redirect(`/farms`)
+      l('2')
+    }
+  })
+
+ return 'finshed'
+}
 
 exports
