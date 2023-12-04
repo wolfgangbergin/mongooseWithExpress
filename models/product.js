@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
     lowercase: true,
-    enum: wolfgang.categories,
+    enum: wolf.categories,
   },
   farm: {
     type: mongoose.Schema.Types.ObjectId,

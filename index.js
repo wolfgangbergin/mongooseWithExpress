@@ -1,4 +1,4 @@
-require('./wolfgang')
+require('./wolf')
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -31,6 +31,7 @@ app.get(
   })
 )
 
+
 app.get('/farms/new', (req, res) => {
   res.render('farms/new')
 })
@@ -50,12 +51,10 @@ app.post(
 app.post(
   '/farms/:_id',
   asyncError(async (req, res) => {
-    l('//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//')
-    const oldFarm = await Farm.findById(req.params._id)
-    const newFarm = new Farm(req.body)
+   
 
-    let result = await wolfgang
-      .testFunc(oldFarm, newFarm, req, res)
+   await wolf
+      .testFunc( req, res)
       .then((result) => {
         l(result)
       })
