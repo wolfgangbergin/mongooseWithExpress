@@ -19,13 +19,14 @@ globalThis.wolf.doSomethingAsync = async (product, newFarm) => {
       category,
     })
     newFarm.products.push(newProduct)
+    newProduct.farm = newFarm
     await newProduct.save()
 
     resolve()
   })
 }
 
-globalThis.wolf.testFunc = async (req, res, save) => {
+globalThis.wolf.deleteAndReplace = async (req, res, save) => {
   const newFarm = new wolf.Farm(req.body)
   const oldFarm = await wolf.Farm.findById(req.params._id)
   if (save) {

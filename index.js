@@ -49,7 +49,7 @@ app.post(
 app.post(
   '/farms/:_id',
   asyncError(async (req, res, ) => {
-    const newID = await wolf.testFunc(req, res, true)
+    const newID = await wolf.deleteAndReplace(req, res, true)
     res.redirect(`/farms/${newID}`)
   })
   
@@ -60,7 +60,7 @@ app.post(
 app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
-    await wolf.testFunc(req, res, false)
+    await wolf.deleteAndReplace(req, res, false)
     res.redirect(`/farms`)
   })
 )
