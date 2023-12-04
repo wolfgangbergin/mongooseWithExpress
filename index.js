@@ -48,8 +48,8 @@ app.post(
 
 app.post(
   '/farms/:_id',
-  asyncError(async (req, res) => {
-    await wolf.testFunc(req, res)
+  asyncError(async (req, res, ) => {
+    await wolf.testFunc(req, res, true)
 
   })
 )
@@ -59,10 +59,7 @@ app.post(
 app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
-    const oldFarm = await wolf.Farm.findByIdAndDelete(req.params._id)
-
-    await Product.deleteMany({ _id: { $in: oldFarm.products } })
-    res.redirect(`/farms`)
+    await wolf.testFunc(req, res, false)
   })
 )
 
