@@ -1,41 +1,34 @@
+l = console.log
 const array = [
-    { fName: 'wolf', lName: 'bergin' },
-    { fName: 'kimbo', lName: 'jojo' },
-  ]
-  
-  function getPosts() {
+  { fName: 'wolf', lName: 'bergin' },
+  { fName: 'kimbo', lName: 'jojo' },
+]
+
+function getPosts() {
+  setTimeout(() => {
+    let output = ``
+    array.forEach((post, index) => {
+      output += post.fName + '\n'
+    })
+    console.log(output)
+  }, 500)
+}
+
+const createPosts = (post) => {
+  return new Promise((res, rej) => {
     setTimeout(() => {
-      let output = ``
-      array.forEach((post, index) => {
-        output += post.fName + '\n'
-      })
-      console.log(output)
+      array.push(post)
+      const error = false
+      error && rej('something went wrong')
+
+      res()
     }, 1000)
-  }
-  
-  
-  const createPosts = async (post, cB) =>{
-    const wolf = await  function(){
-      return new Promise(res=>{
-          setTimeout(()=>{
-          array.push(post)
-          res()
-      }, 6000)
-          
-         
-      })}().then(()=>cB())
-  
-    
-  
-      
-      
-  }
-  
-  
-  
-  
-  
-  
-  createPosts({fName: 'bobo', lName: 'bobo'}, getPosts)
-  
-  
+  })
+}
+
+
+
+
+
+// createPosts({ fName: 'bobo', lName: 'bobo' }).then((data) => getPosts(data))
+// .catch((err) => l(err))
