@@ -7,7 +7,7 @@ function getPosts() {
   setTimeout(() => {
     let output = ``
     array.forEach((post, index) => {
-      output += post.fName + ' '
+      output += post.fName + '\n'
     })
     console.log(output)
   }, 1000)
