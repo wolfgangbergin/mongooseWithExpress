@@ -34,7 +34,11 @@ const proimse3 = new Promise((res, rej) => {
 })
 
 
-Promise.all([proimse1, proimse2, proimse3]).then((values) => l(values))
+const proimse4 = fetch('https://jsonplaceholder.typicode.com/users').then((res) => res.json())
+
+
+
+Promise.all([proimse1, proimse2, proimse3, proimse4]).then((values) => l(values[3][1].name))
 
 
 
