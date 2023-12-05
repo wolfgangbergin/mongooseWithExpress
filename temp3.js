@@ -13,4 +13,16 @@ function getPosts() {
   }, 1000)
 }
 
-getPosts()
+
+const createPosts = (post, cB) =>{
+    setTimeout(()=>{
+        array.push(post)
+       cB()
+    }, 2000)
+    
+}
+
+
+
+createPosts({fName: 'bobo', lName: 'bobo'}, getPosts)
+
