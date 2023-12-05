@@ -11,7 +11,9 @@ function getPosts() {
       output += post.fName + '\n'
     })
     console.log(output)
+   
   }, 500)
+  return 'wolfman'
 }
 
 const createPosts = (post) => {
@@ -26,21 +28,21 @@ const createPosts = (post) => {
   })
 }
 
-
 const proimse1 = Promise.resolve('hello world')
 const proimse2 = 10
 const proimse3 = new Promise((res, rej) => {
   setTimeout(res, 2000, 'goodbye')
 })
 
-
-const proimse4 = fetch('https://jsonplaceholder.typicode.com/users').then((res) => res.json())
-
-
-
-Promise.all([proimse1, proimse2, proimse3, proimse4]).then((values) => l(values[3][1].name))
+const proimse4 = fetch('https://jsonplaceholder.typicode.com/users')
+  .then((res) => res.json())
+  .then((data) => data[1].name)
 
 
+// Promise.all([proimse1, proimse2, proimse3, proimse4]).then((values) =>
+//   l(values)
+// )
 
-// createPosts({ fName: 'bobo', lName: 'bobo' }).then((data) => getPosts(data))
-// .catch((err) => l(err))
+
+createPosts({ fName: 'bobo', lName: 'bobo' }).then(() => l(getPosts()))
+.catch((err) => l(err))
