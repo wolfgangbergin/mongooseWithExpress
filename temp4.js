@@ -1,25 +1,28 @@
 l = console.log
-const array = [
+const array1 = [
   { fName: 'wolf', lName: 'bergin' },
   { fName: 'kimbo', lName: 'jojo' },
 ]
 
 function getPosts() {
+  let output = ``
+  let array2 = []
   setTimeout(() => {
-    let output = ``
-    array.forEach((post, index) => {
+   
+    array1.forEach((post, index) => {
+      array2.push(post.fName)
       output += post.fName + '\n'
     })
     console.log(output)
    
   }, 500)
-  return 'wolfman'
+  return array2
 }
 
 const createPosts = (post) => {
   return new Promise((res, rej) => {
     setTimeout(() => {
-      array.push(post)
+      array1.push(post)
       const error = false
       error && rej('something went wrong')
 
@@ -39,10 +42,12 @@ const proimse4 = fetch('https://jsonplaceholder.typicode.com/users')
   .then((data) => data[1].name)
 
 
-// Promise.all([proimse1, proimse2, proimse3, proimse4]).then((values) =>
-//   l(values)
-// )
 
 
-createPosts({ fName: 'bobo', lName: 'bobo' }).then(() => l(getPosts()))
+
+const proimse5 = createPosts({ fName: 'bobo', lName: 'bobo' }).then(() => getPosts())
 .catch((err) => l(err))
+
+Promise.all([proimse1, proimse2, proimse3, proimse4, proimse5]).then((values) =>
+  l(values)
+)
