@@ -27,6 +27,14 @@ const createPosts = (post) => {
 }
 
 
+const proimse1 = Promise.resolve('hello world')
+const proimse2 = 10
+const proimse3 = new Promise((res, rej) => {
+  setTimeout(res, 2000, 'goodbye')
+})
+
+
+Promise.all([proimse1, proimse2, proimse3]).then((values) => l(values))
 
 
 
