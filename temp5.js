@@ -1,3 +1,5 @@
+const { get } = require('mongoose')
+
 l = console.log
 const array1 = [
   { fName: 'wolf', lName: 'bergin' },
@@ -5,7 +7,7 @@ const array1 = [
 ]
 
 function getPosts() {
-  return new Promise((res, rej) => {
+  return new Promise((res) => {
     let output = ``
     let array2 = ['apple']
     setTimeout(() => {
@@ -13,10 +15,10 @@ function getPosts() {
         l('loop')
         array2.push(post.fName)
         output += post.fName + '\n'
+        res(array2)
       })
       // console.log(output)
     }, 500)
-    res(array2)
   })
 }
 
@@ -37,10 +39,12 @@ async function init() {
   const proimse1 = Promise.resolve('hello world')
   const proimse2 = 10
   const proimse3 = new Promise((res, rej) => {
-    setTimeout(res, 2000, 'goodbye')
+    setTimeout(res, 20, 'goodbye')
   })
 
-  const temp1 = await fetch('https://jsonplaceholder.typicode.com/users')
+  const temp1 = await fetch(
+    'https://jsonplaceholder.typicode.com/users'
+  )
   const temp2 = await temp1.json()
   const proimse4 = temp2[2].name
 
