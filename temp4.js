@@ -6,15 +6,14 @@ const array1 = [
 
 function getPosts() {
   let output = ``
-  let array2 = []
+  let array2 = ['apple']
   setTimeout(() => {
-   
-    array1.forEach((post, index) => {
+    array1.forEach((post) => {
+      l('loop')
       array2.push(post.fName)
       output += post.fName + '\n'
     })
-    console.log(output)
-   
+      // console.log(output)
   }, 500)
   return array2
 }
@@ -41,13 +40,22 @@ const proimse4 = fetch('https://jsonplaceholder.typicode.com/users')
   .then((res) => res.json())
   .then((data) => data[1].name)
 
+const proimse5 = createPosts({ fName: 'bobo2', lName: 'bobo2' })
+  .then(() => getPosts())
+  .catch((err) => l(err))
 
-
-
-
-const proimse5 = createPosts({ fName: 'bobo', lName: 'bobo' }).then(() => getPosts())
-.catch((err) => l(err))
-
-Promise.all([proimse1, proimse2, proimse3, proimse4, proimse5]).then((values) =>
-  l(values)
+Promise.all([proimse1, proimse2, proimse3, proimse4, proimse5]).then(
+  (values) => l(values)
 )
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+async function init() {
+  await createPosts({ fName: 'bobo', lName: 'bobo' })
+
+  const posts = await getPosts()
+
+  l(posts)
+}
+
+init()
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
