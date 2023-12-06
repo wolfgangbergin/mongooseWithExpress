@@ -13,6 +13,8 @@ const wolfPromis = (param) => {
     }, Math.random() * 1000)
   })
 }
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
 
 const main = async () => {
 
