@@ -5,6 +5,7 @@ const array1 = [
 ]
 
 function getPosts() {
+    return new Promise((res, rej) => {
   let output = ``
   let array2 = ['apple']
   setTimeout(() => {
@@ -15,7 +16,8 @@ function getPosts() {
     })
       // console.log(output)
   }, 500)
-  return array2
+  res(array2)
+})
 }
 
 const createPosts = (post) => {
@@ -30,31 +32,32 @@ const createPosts = (post) => {
   })
 }
 
-const proimse1 = Promise.resolve('hello world')
+
+
+
+
+
+
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+async function init() {
+    const proimse1 = Promise.resolve('hello world')
 const proimse2 = 10
 const proimse3 = new Promise((res, rej) => {
   setTimeout(res, 2000, 'goodbye')
 })
 
-const proimse4 = fetch('https://jsonplaceholder.typicode.com/users')
-  .then((res) => res.json())
-  .then((data) => data[1].name)
+    const proimse4 = fetch('https://jsonplaceholder.typicode.com/users')
+    .then((res) => res.json())
+    .then((data) => data[1].name)
 
-const proimse5 = createPosts({ fName: 'bobo2', lName: 'bobo2' })
-  .then(() => getPosts())
-  .catch((err) => l(err))
-
-Promise.all([proimse1, proimse2, proimse3, proimse4, proimse5]).then(
-  (values) => l(values)
-)
-
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-async function init() {
-  await createPosts({ fName: 'bobo', lName: 'bobo' })
-
-  const posts = await getPosts()
-
-  l(posts)
+    await createPosts({ fName: 'bobo2', lName: 'bobo2' })
+    
+    const proimse5 = await getPosts()
+    l(proimse5)
+  Promise.all([proimse1, proimse2, proimse3, proimse4, proimse5]).then(
+    (values) => l(values)
+  )
 }
 
 init()
