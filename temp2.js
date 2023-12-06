@@ -1,28 +1,24 @@
+l = console.log
+const array1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
 
-const arr = [1,2,3,4,5,6,7,8,9,0]
-
-
-const wolfPromis = (param)=>{
-  return new Promise((res)=>{
+const wolfPromis = (param) => {
+  return new Promise((res) => {
+    let array2 = ['apple']
     setTimeout(() => {
-       console.log(param)
-       res() 
-    }, Math.random() * 1000);
+      array1.forEach((post) => {
+        array2.push(post)
+
+        res(array2)
+      })
+    }, Math.random() * 1000)
   })
 }
 
+const main = async () => {
 
-const main = async()=>{
+  const proimse5 = await wolfPromis()
 
-    await Promise.all(
-        arr.map(async(data)=>{
-            await  wolfPromis(data)
-        })
-    )
-
-    console.log('done')
-
+  l(proimse5)
 }
-
 
 main()

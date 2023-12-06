@@ -1,4 +1,4 @@
-const { get } = require('mongoose')
+
 
 l = console.log
 const array1 = [
@@ -54,14 +54,14 @@ async function init() {
 
   l(proimse5)
 
-  const Result = await Promise.all([
-    proimse1,
-    proimse2,
-    proimse3,
-    proimse4,
-    proimse5,
-  ])
-  l(Result)
+//   const Result = await Promise.all([
+//     proimse1,
+//     proimse2,
+//     proimse3,
+//     proimse4,
+//     proimse5,
+//   ])
+//   l(Result)
 }
 
 init()
