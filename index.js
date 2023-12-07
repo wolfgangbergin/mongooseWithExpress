@@ -129,8 +129,9 @@ app.get(
   asyncError(async (req, res) => {
     const products = await Product.find(req.query ?? {})
     const temp = req.query.category
-    l(req.query.category)
-    res.render('products/index', { products, temp})
+    const {category} = req.query
+    l(category)
+    res.render('products/index', { products, category})
   })
 )
 
