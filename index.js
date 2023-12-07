@@ -114,24 +114,21 @@ app.post(
 
 // product routes
 
-app.get(
-  '/wolf',
-  asyncError(async (req, res) => {
-      const products = await Product.find(req.query ?? {})
-    res.render(`products/wolf`, { products })
-  })
-)
 
 
 
 app.get(
   '/products',
   asyncError(async (req, res) => {
-    const products = await Product.find(req.query ?? {})
-    const temp = req.query.category
-    const {category} = req.query
+
+    const {query} = req
+    l(query)
+    const {category} = query
     l(category)
-    res.render('products/index', { products, category})
+    const products = await Product.find(query ?? {})
+    const temp1 = {category: category}
+    
+    res.render('products/index', { products, ...temp1})
   })
 )
 
