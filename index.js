@@ -113,10 +113,25 @@ app.post(
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
 // product routes
+
+app.get(
+  '/kim',
+  asyncError(async (req, res) => {
+      const products = await Product.find(req.query ?? {})
+      const kim = 'kimbo'
+      const kim2 = 'kimbo'
+      const kim3 = {fName: 'kimbo3'}
+    res.render(`products/kim`, { products, kim, kim2, ...kim3 })
+  })
+)
+
+
+
 app.get(
   '/products',
   asyncError(async (req, res) => {
     const products = await Product.find(req.query ?? {})
+   
     res.render('products/index', { products, ...req })
   })
 )
@@ -169,6 +184,7 @@ app.get(
     res.redirect(`/products`)
   })
 )
+
 
 // app.delete(
 //   '/products/:_id',
