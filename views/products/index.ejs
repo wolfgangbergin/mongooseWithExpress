@@ -1,5 +1,5 @@
 <% layout('layouts/boilerplate') %>
-    <h1><%= category ?? 'all' %> products!</h1>
+    <h1><%= query?.category ?? 'all' %> products!</h1>
     <ul>
       <% for(let product of products) { %>
       <li>
@@ -8,9 +8,9 @@
       <% } %>
     </ul>
 
-    <%if(!category) { %>
+    <%if(!query?.category) { %>
     <a href="/products/new">Add a new product</a>
-    <% } %> <%if(category) { %>
+    <% } %> <%if(query?.category) { %>
     <a href="/products">All product</a>
     <% } %>
 

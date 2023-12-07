@@ -117,24 +117,57 @@ app.post(
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get(
   '/products',
   asyncError(async (req, res) => {
 
     const {query} = req
-    l(query)
-    const {category} = query
-    l(category)
+   
+
     const products = await Product.find(query ?? {})
-    const temp1 = {category: category}
     
-    res.render('products/index', { products, ...temp1})
+    res.render('products/index', { products, query})
   })
 )
 
 app.get('/products/new', (req, res) => {
   res.render('products/new')
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.get(
   '/products/:_id',
@@ -144,6 +177,23 @@ app.get(
     res.render('products/show', { product })
   })
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.post(
   '/products',
