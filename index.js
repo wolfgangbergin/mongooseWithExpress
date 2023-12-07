@@ -11,9 +11,14 @@ const ejsMate = require('ejs-mate')
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
-  .then(() => console.log('Connected to MongoDB...🏁🏁🏁'))
+  .then(() =>
+    console.log('Connected to MongoDB...🏁🏁🏁')
+  )
   .catch((err) =>
-    console.error('Could not connect to MongoDB...🤬🤬🤬', err)
+    console.error(
+      'Could not connect to MongoDB...🤬🤬🤬',
+      err
+    )
   )
 
 app.engine('ejs', ejsMate)
@@ -48,11 +53,14 @@ app.post(
 
 app.post(
   '/farms/:_id',
-  asyncError(async (req, res, ) => {
-    const newID = await wolf.deleteAndReplace(req, res, true)
+  asyncError(async (req, res) => {
+    const newID = await wolf.deleteAndReplace(
+      req,
+      res,
+      true
+    )
     res.redirect(`/farms/${newID}`)
   })
-  
 )
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
@@ -70,7 +78,9 @@ app.get(
 app.get(
   '/farms/:_id/edit',
   asyncError(async (req, res) => {
-    const farm = await wolf.Farm.findById(req.params._id)
+    const farm = await wolf.Farm.findById(
+      req.params._id
+    )
     res.render('farms/edit', { farm })
   })
 )
@@ -79,9 +89,9 @@ app.get(
 app.get(
   '/farms/:_id',
   asyncError(async (req, res) => {
-    const farm = await wolf.Farm.findById(req.params._id).populate(
-      'products'
-    )
+    const farm = await wolf.Farm.findById(
+      req.params._id
+    ).populate('products')
 
     res.render('farms/show', { farm })
   })
@@ -90,7 +100,9 @@ app.get(
 app.get(
   '/farms/:_id/products/new',
   asyncError(async (req, res) => {
-    const farm = await wolf.Farm.findById(req.params._id)
+    const farm = await wolf.Farm.findById(
+      req.params._id
+    )
     res.render('farms/newFarmProduct.ejs', { farm })
   })
 )
@@ -98,7 +110,9 @@ app.get(
 app.post(
   '/farms/:_id/products',
   asyncError(async (req, res) => {
-    const farm = await wolf.Farm.findById(req.params._id)
+    const farm = await wolf.Farm.findById(
+      req.params._id
+    )
     const newProduct = new Product({ ...req.body })
     farm.products.push(newProduct)
     newProduct.farm = farm
@@ -114,32 +128,14 @@ app.post(
 
 // product routes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.get(
   '/products',
   asyncError(async (req, res) => {
+    const { query } = req
 
-    const {query} = req
-   
+    const products = await Product.find(query)
 
-    const products = await Product.find(query ?? {})
-    
-    res.render('products/index', { products, query})
+    res.render('products/index', { products, query })
   })
 )
 
@@ -147,53 +143,16 @@ app.get('/products/new', (req, res) => {
   res.render('products/new')
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.get(
   '/products/:_id',
   asyncError(async (req, res) => {
-    const product = await Product.findById(req.params._id).populate('farm')
+    const product = await Product.findById(
+      req.params._id
+    ).populate('farm')
 
     res.render('products/show', { product })
   })
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.post(
   '/products',
@@ -206,7 +165,9 @@ app.post(
 app.get(
   '/products/:_id/edit',
   asyncError(async (req, res) => {
-    const product = await Product.findById(req.params._id)
+    const product = await Product.findById(
+      req.params._id
+    )
     res.render('products/edit', { product })
   })
 )
@@ -226,19 +187,14 @@ app.put(
 app.get(
   '/products/:_id/delete',
   asyncError(async (req, res) => {
-    const product = await Product.findByIdAndDelete(req.params._id)
+    const product = await Product.findByIdAndDelete(
+      req.params._id
+    )
     res.redirect(`/products`)
   })
 )
 
 
-// app.delete(
-//   '/products/:_id',
-//   asyncError(async (req, res) => {
-//     const product = await Product.findByIdAndDelete(req.params._id)
-//     res.redirect(`/products`)
-//   })
-// )
 
 app.use((req, res, next) => {
   //res.send('error')
