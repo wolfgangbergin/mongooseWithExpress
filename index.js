@@ -115,13 +115,10 @@ app.post(
 // product routes
 
 app.get(
-  '/kim',
+  '/wolf',
   asyncError(async (req, res) => {
       const products = await Product.find(req.query ?? {})
-      const kim = 'kimbo'
-      const kim2 = 'kimbo'
-      const kim3 = {fName: 'kimbo3'}
-    res.render(`products/kim`, { products, kim, kim2, ...kim3 })
+    res.render(`products/wolf`, { products })
   })
 )
 
@@ -131,8 +128,9 @@ app.get(
   '/products',
   asyncError(async (req, res) => {
     const products = await Product.find(req.query ?? {})
-   
-    res.render('products/index', { products, ...req })
+    const temp = req.query.category
+    l(req.query.category)
+    res.render('products/index', { products, temp})
   })
 )
 
