@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product that show</title>
-  </head>
-  <body>
+<% layout('layouts/boilerplate') %>
     <h1><%= product.name %></h1>
 
     <ul>
@@ -24,5 +17,4 @@
     <a href="/products/<%= product._id %>/edit">Edit</a><br />
     <a href="/products/<%= product._id %>/delete"> Delete Product</a><br />
    
-  </body>
-</html>
+  

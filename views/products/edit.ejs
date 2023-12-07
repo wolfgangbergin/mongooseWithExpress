@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Product</title>
-</head>
-
-<body>
+<% layout('layouts/boilerplate') %>
     <h1>edit  A Product</h1>
     <form action="/products/<%=product._id%>?_method=PUT" method="POST">
         <p>
@@ -28,5 +20,3 @@
         <input type="submit" value="submit">
     </form>
     <a href="/products"> cancel</a>
-</body>
-</html>
