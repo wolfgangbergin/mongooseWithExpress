@@ -68,7 +68,14 @@ app.post(
 app.get(
   '/farms/:_id/delete',
   asyncError(async (req, res) => {
-    await wolf.deleteAndReplace(req, res, false)
+    const oldFarm = await wolf.Farm.findByIdAndDelete(
+      req.params._id
+    )
+
+    await wolf.Product.deleteMany({
+      _id: { $in: oldFarm.products },
+    })
+
     res.redirect(`/farms`)
   })
 )
@@ -198,21 +205,12 @@ app.all('*', (req, res, next) => {
   next(new ExpressError('Page Not Found🥜🥜', 404))
 })
 
-app.use((req, res, next) => {
-  //res.send('error')
-  // err.message = 'Something went wrong'
-  // l(err.message)
-  const err = new Error('wolf Not Found')
-  err.statusCode = 404
-  res.render('error', { err })
+app.use((err, req, res, next) => {
+  !err.message &&
+    (err.message = 'Something went wrong')
+  !err.statusCode && (err.statusCode = 515)
+  res.status(err.statusCode).render('error', { err })
 })
-
-// app.use((err, req, res, next) => {
-
-//   if (!err.message) {err.message = 'Something went wrong',
-//   err.statusCode = 515}
-//     res.status(err.statusCode).render('error', { err })
-//   })
 
 app.listen(3000, () => {
   l('listening on port 3000')
