@@ -26,10 +26,10 @@ globalThis.wolf.doSomethingAsync = async (product, newFarm) => {
   })
 }
 
-globalThis.wolf.deleteAndReplace = async (req, res, save) => {
+globalThis.wolf.deleteAndReplace = async (req, res, ) => {
   const newFarm = new wolf.Farm(req.body)
   const oldFarm = await wolf.Farm.findById(req.params._id)
-  if (save) {
+  
    
     await Promise.all(
       oldFarm.products.map(async (product) => {
@@ -37,7 +37,7 @@ globalThis.wolf.deleteAndReplace = async (req, res, save) => {
       })
     )
     await newFarm.save()
-  }
+
   await wolf.Farm.findByIdAndDelete(req.params._id)
   await wolf.Product.deleteMany({
     _id: { $in: oldFarm.products },
