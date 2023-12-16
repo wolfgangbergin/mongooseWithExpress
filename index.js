@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const Product = require('./models/product')
 const methodOverride = require('method-override')
 const asyncError = require('./asyncError/asyncError')
-
+const ExpressError = require('./utils/ExpressError')
 const ejsMate = require('ejs-mate')
 
 mongoose
@@ -194,7 +194,9 @@ app.get(
   })
 )
 
-
+app.all('*', (req, res, next) => {
+  next(new ExpressError('Page Not Found🥜🥜', 404))
+})
 
 app.use((req, res, next) => {
   //res.send('error')
