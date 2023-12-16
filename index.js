@@ -53,13 +53,15 @@ app.post(
 
 app.post(
   '/farms/:_id',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     
     const newID = await wolf.deleteAndReplace(
       req,
       res,
-      true
+      next,
     )
+   
+    
     res.redirect(`/farms/${newID}`)
   })
 )
