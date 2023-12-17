@@ -26,7 +26,7 @@ globalThis.wolf.doSomethingAsync = async (product, newFarm) => {
   })
 }
 
-globalThis.wolf.deleteAndReplace = async (req, res, ) => {
+globalThis.wolf.deleteAndReplace = async (req, res, next) => {
   const newFarm = new wolf.Farm(req.body)
   const oldFarm = await wolf.Farm.findById(req.params._id)
   
@@ -42,7 +42,9 @@ globalThis.wolf.deleteAndReplace = async (req, res, ) => {
   await wolf.Product.deleteMany({
     _id: { $in: oldFarm.products },
   })
+ 
  return newFarm._id
+
 }
 
 exports

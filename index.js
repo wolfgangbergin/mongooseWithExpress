@@ -30,26 +30,29 @@ app.use(methodOverride('_method'))
 
 app.get(
   '/farms',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const farms = await wolf.Farm.find({})
     res.render('farms/index', { farms })
+    
   })
 )
 
-app.get('/farms/new', (req, res) => {
+
+
+
+app.get('/farms/new', (req, res, next) => {
   res.render('farms/new')
 })
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+
 
 app.post(
   '/farms',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const newFarm = new wolf.Farm(req.body)
     await newFarm.save()
     res.redirect(`/farms`)
   })
 )
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
 app.post(
   '/farms/:_id',
@@ -71,7 +74,7 @@ app.post(
 
 app.get(
   '/farms/:_id/delete',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const oldFarm = await wolf.Farm.findByIdAndDelete(
       req.params._id
     )
@@ -88,7 +91,7 @@ app.get(
 
 app.get(
   '/farms/:_id/edit',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const farm = await wolf.Farm.findById(
       req.params._id
     )
@@ -99,7 +102,7 @@ app.get(
 
 app.get(
   '/farms/:_id',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const farm = await wolf.Farm.findById(
       req.params._id
     ).populate('products')
@@ -120,7 +123,7 @@ app.get(
 
 app.post(
   '/farms/:_id/products',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const farm = await wolf.Farm.findById(
       req.params._id
     )
@@ -141,7 +144,7 @@ app.post(
 
 app.get(
   '/products',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const { query } = req
 
     const products = await Product.find(query)
@@ -150,13 +153,13 @@ app.get(
   })
 )
 
-app.get('/products/new', (req, res) => {
+app.get('/products/new', (req, res, next) => {
   res.render('products/new')
 })
 
 app.get(
   '/products/:_id',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const product = await Product.findById(
       req.params._id
     ).populate('farm')
@@ -167,7 +170,7 @@ app.get(
 
 app.post(
   '/products',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const newProduct = new Product(req.body)
     await newProduct.save()
     res.redirect(`/products`)
@@ -175,7 +178,7 @@ app.post(
 )
 app.get(
   '/products/:_id/edit',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const product = await Product.findById(
       req.params._id
     )
@@ -185,7 +188,7 @@ app.get(
 
 app.put(
   '/products/:_id',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const product = await Product.findByIdAndUpdate(
       req.params._id,
       req.body,
@@ -197,7 +200,7 @@ app.put(
 
 app.get(
   '/products/:_id/delete',
-  asyncError(async (req, res) => {
+  asyncError(async (req, res, next) => {
     const product = await Product.findByIdAndDelete(
       req.params._id
     )
