@@ -8,6 +8,8 @@ const methodOverride = require('method-override')
 const asyncError = require('./asyncError/asyncError')
 const ExpressError = require('./utils/ExpressError')
 const ejsMate = require('ejs-mate')
+const kimbo = require('./routes/farms')
+
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
@@ -24,6 +26,8 @@ mongoose
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
+
+app.use('/kim', kimbo)
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 // wolf.Farm routes
