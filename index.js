@@ -107,41 +107,41 @@ app.use('/farms', kimbo)
 // )
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
-app.get(
-  '/farms/:_id',
-  asyncError(async (req, res, next) => {
-    const farm = await wolf.Farm.findById(
-      req.params._id
-    ).populate('products')
+// app.get(
+//   '/farms/:_id',
+//   asyncError(async (req, res, next) => {
+//     const farm = await wolf.Farm.findById(
+//       req.params._id
+//     ).populate('products')
 
-    res.render('farms/show', { farm })
-  })
-)
+//     res.render('farms/show', { farm })
+//   })
+// )
 
-app.get(
-  '/farms/:_id/products/new',
-  asyncError(async (req, res) => {
-    const farm = await wolf.Farm.findById(
-      req.params._id
-    )
-    res.render('farms/newFarmProduct.ejs', { farm })
-  })
-)
+// app.get(
+//   '/farms/:_id/products/new',
+//   asyncError(async (req, res) => {
+//     const farm = await wolf.Farm.findById(
+//       req.params._id
+//     )
+//     res.render('farms/newFarmProduct.ejs', { farm })
+//   })
+// )
 
-app.post(
-  '/farms/:_id/products',
-  asyncError(async (req, res, next) => {
-    const farm = await wolf.Farm.findById(
-      req.params._id
-    )
-    const newProduct = new Product({ ...req.body })
-    farm.products.push(newProduct)
-    newProduct.farm = farm
-    await newProduct.save()
-    await farm.save()
-    res.redirect(`/farms/${farm._id}`)
-  })
-)
+// app.post(
+//   '/farms/:_id/products',
+//   asyncError(async (req, res, next) => {
+//     const farm = await wolf.Farm.findById(
+//       req.params._id
+//     )
+//     const newProduct = new Product({ ...req.body })
+//     farm.products.push(newProduct)
+//     newProduct.farm = farm
+//     await newProduct.save()
+//     await farm.save()
+//     res.redirect(`/farms/${farm._id}`)
+//   })
+// )
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//

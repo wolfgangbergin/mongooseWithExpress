@@ -4,6 +4,8 @@ const Farm = require('../models/farm')
 const asyncError = require('../asyncError/asyncError')
 require('../wolf')
 
+const Product = require('../models/product')
+
 router.get('/', async (req, res, next) => {
   const farms = await Farm.find({})
   res.render('farms/index', { farms })
@@ -59,5 +61,42 @@ router.get(
     res.render('farms/edit', { farm })
   })
 )
+
+
+router.get(
+    '/:_id',
+    asyncError(async (req, res, next) => {
+      const farm = await wolf.Farm.findById(
+        req.params._id
+      ).populate('products')
+  
+      res.render('farms/show', { farm })
+    })
+  )
+  
+  router.get(
+    '/:_id/products/new',
+    asyncError(async (req, res) => {
+      const farm = await wolf.Farm.findById(
+        req.params._id
+      )
+      res.render('farms/newFarmProduct.ejs', { farm })
+    })
+  )
+  
+  router.post(
+    '/:_id/products',
+    asyncError(async (req, res, next) => {
+      const farm = await wolf.Farm.findById(
+        req.params._id
+      )
+      const newProduct = new Product({ ...req.body })
+      farm.products.push(newProduct)
+      newProduct.farm = farm
+      await newProduct.save()
+      await farm.save()
+      res.redirect(`/farms/${farm._id}`)
+    })
+  )
 
 module.exports = router
