@@ -4,9 +4,12 @@ const Product = require('./models/product')
 
 
 
-    module.exports =  () => {
+    module.exports = async () => {
         
-      let temp = 666
+      let temp = await Product.find({$or: [{name: /De/}, {name: /Ro/}]})
     
         console.log(temp);
         }
+
+
+        
