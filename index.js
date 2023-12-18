@@ -9,6 +9,7 @@ const asyncError = require('./asyncError/asyncError')
 const ExpressError = require('./utils/ExpressError')
 const ejsMate = require('ejs-mate')
 const farmRoutes = require('./routes/farms')
+const productRoutes = require('./routes/products')
 
 
 mongoose

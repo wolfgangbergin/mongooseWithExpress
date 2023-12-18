@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Farm = require('../models/farm')
 const asyncError = require('../asyncError/asyncError')
-require('../wolf')
-
 const Product = require('../models/product')
 
 router.get('/', async (req, res, next) => {
