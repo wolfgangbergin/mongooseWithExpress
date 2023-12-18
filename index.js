@@ -3,14 +3,16 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
-const Product = require('./models/product')
+
 const methodOverride = require('method-override')
 const asyncError = require('./asyncError/asyncError')
 const ExpressError = require('./utils/ExpressError')
 const ejsMate = require('ejs-mate')
 const farmRoutes = require('./routes/farms')
 const productRoutes = require('./routes/products')
+const temp6 = require('./temp6')
 
+temp6()
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
