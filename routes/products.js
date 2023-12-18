@@ -69,7 +69,6 @@ router.get(
   '/:_id/delete',
   asyncError(async (req, res, next) => {
 
-    l('jojjojo')
     const product = await Product.findByIdAndDelete(
       req.params._id
     )
