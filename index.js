@@ -35,7 +35,7 @@ app.use(methodOverride('_method'))
 
 app.use('/farms', farmRoutes)
 
-
+app.use('/products', productRoutes)
 
 
 // product routes
