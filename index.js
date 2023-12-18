@@ -27,81 +27,84 @@ app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
-app.use('/kim', kimbo)
+
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 // wolf.Farm routes
 
-app.get(
-  '/farms',
-  asyncError(async (req, res, next) => {
-    const farms = await wolf.Farm.find({})
-    res.render('farms/index', { farms })
+app.use('/farms', kimbo)
+
+// app.get(
+//   '/farms',
+//   asyncError(async (req, res, next) => {
+//     const farms = await wolf.Farm.find({})
+//     res.render('farms/index', { farms })
     
-  })
-)
+//   })
+// )
 
 
 
 
-app.get('/farms/new', (req, res, next) => {
-  res.render('farms/new')
-})
+// app.get('/farms/new', (req, res, next) => {
+//   res.render('farms/new')
+// })
 
 
-app.post(
-  '/farms',
-  asyncError(async (req, res, next) => {
-    const newFarm = new wolf.Farm(req.body)
-    await newFarm.save()
-    res.redirect(`/farms`)
-  })
-)
+// app.post(
+//   '/farms',
+//   asyncError(async (req, res, next) => {
+//     l(`req.body`, req)
+//     const newFarm = new wolf.Farm(req.body)
+//     await newFarm.save()
+//     res.redirect(`/farms`)
+//   })
+// )
 
-app.post(
-  '/farms/:_id',
-  asyncError(async (req, res, next) => {
+// app.post(
+//   '/farms/:_id',
+//   asyncError(async (req, res, next) => {
     
-    const newID = await wolf.deleteAndReplace(
-      req,
-      res,
-      next,
-    )
+//     const newID = await wolf.deleteAndReplace(
+//       req,
+//       res,
+//       next,
+//     )
    
     
-    res.redirect(`/farms/${newID}`)
-  })
-)
+//     res.redirect(`/farms/${newID}`)
+//   })
+// )
 
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
-app.get(
-  '/farms/:_id/delete',
-  asyncError(async (req, res, next) => {
-    const oldFarm = await wolf.Farm.findByIdAndDelete(
-      req.params._id
-    )
+// app.get(
+//   '/farms/:_id/delete',
+//   asyncError(async (req, res, next) => {
+//     const oldFarm = await wolf.Farm.findByIdAndDelete(
+//       req.params._id
+//     )
 
-    await wolf.Product.deleteMany({
-      _id: { $in: oldFarm.products },
-    })
+//     await wolf.Product.deleteMany({
+//       _id: { $in: oldFarm.products },
+//     })
 
-    res.redirect(`/farms`)
-  })
-)
+//     res.redirect(`/farms`)
+//   })
+// )
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
-app.get(
-  '/farms/:_id/edit',
-  asyncError(async (req, res, next) => {
-    const farm = await wolf.Farm.findById(
-      req.params._id
-    )
-    res.render('farms/edit', { farm })
-  })
-)
+// app.get(
+//   '/farms/:_id/edit',
+//   asyncError(async (req, res, next) => {
+//     const farm = await wolf.Farm.findById(
+//       req.params._id
+//     )
+//     res.render('farms/edit', { farm })
+//   })
+// )
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 
 app.get(
