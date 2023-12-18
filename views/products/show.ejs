@@ -1,5 +1,5 @@
 <% layout('layouts/boilerplate') %>
-    <h1><%= product.name %></h1>
+    <h1>Name: <%= product.name %></h1>
 
     <ul>
       <li>
@@ -13,8 +13,14 @@
       
       </li>
     </ul>
-    <a href="/products">Back to all products</a> <br />
-    <a href="/products/<%= product._id %>/edit">Edit</a><br />
-    <a href="/products/<%= product._id %>/delete"> Delete Product</a><br />
+    <br />
+    <a href="/products">Back to all products</a> 
+    <br />
+    <br />
+
+    <a href="/products/<%= product._id %>/edit">Edit</a>
+    <br />
+    <br />
+    <a href="/products/<%= product._id %>/delete"> Delete Product</a>
    
   

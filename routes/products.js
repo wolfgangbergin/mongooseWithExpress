@@ -49,7 +49,7 @@ router.get(
     const product = await Product.findById(
       req.params._id
     )
-    res.render('/edit', { product })
+    res.render('products/edit', { product })
   })
 )
 
@@ -61,7 +61,7 @@ router.put(
       req.body,
       { runValidators: true, new: true }
     )
-    res.redirect(``)
+    res.redirect(`/products`)
   })
 )
 
