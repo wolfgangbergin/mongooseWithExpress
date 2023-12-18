@@ -3,10 +3,16 @@ const router = express.Router()
 const Farm = require('../models/farm')
 const asyncError = require('../asyncError/asyncError')
 const Product = require('../models/product')
+const ExpressError = require('../utils/ExpressError')
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res, next) => {   
+
+
+
   const farms = await Farm.find({})
+
   res.render('farms/index', { farms })
+
 })
 
 router.get('/new', (req, res, next) => {
