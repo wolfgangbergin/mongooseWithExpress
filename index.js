@@ -10,9 +10,9 @@ const ExpressError = require('./utils/ExpressError')
 const ejsMate = require('ejs-mate')
 const farmRoutes = require('./routes/farms')
 const productRoutes = require('./routes/products')
-const temp6 = require('./temp6')
 
-temp6()
+
+
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
