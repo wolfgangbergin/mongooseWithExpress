@@ -40,6 +40,14 @@ app.use('/farms', farmRoutes)
 app.use('/products', productRoutes)
 
 
+app.get('/newWolf/:_id', (req, res, next) => {
+ 
+  (req.params._id === '1234') &&  res.render('products/new')
+
+  l(req.params._id)
+  res.render('products/new')
+})
+
 
 app.all('*', (req, res, next) => {
   next(new ExpressError('Page Not Found🥜🥜', 404))

@@ -21,15 +21,10 @@ router.get(
 
 
 
-router.get('/newWolf/:_id', (req, res, next) => {
- 
-  (req.params._id === '1234') &&  res.render('products/new')
- 
-})
 
 
 router.get('/new', (req, res, next) => {
-  l('kim313')
+ 
   res.render('products/new')
 })
 
