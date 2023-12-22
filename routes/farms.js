@@ -81,6 +81,7 @@ router.get(
   router.get(
     '/:_id/products/new',
     asyncError(async (req, res) => {
+      l(req.params._id)
       const farm = await wolf.Farm.findById(
         req.params._id
       )
