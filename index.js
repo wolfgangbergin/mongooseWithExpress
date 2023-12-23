@@ -11,9 +11,6 @@ const ejsMate = require('ejs-mate')
 const farmRoutes = require('./routes/farms')
 const productRoutes = require('./routes/products')
 
-
-
-
 mongoose
   .connect('mongodb://127.0.0.1:27017/farmStand')
   .then(() =>
@@ -30,24 +27,28 @@ app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
-
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-
 
 app.use('/farms', farmRoutes)
 
 app.use('/products', productRoutes)
 
+app.get(
+  '/newWolf/:_id',
+  asyncError(async (req, res, next) => {
+    if (req.params._id === '1234') {
+      res.render('products/new')
 
-app.get('/newWolf/:_id', (req, res, next) => {
- 
-  (req.params._id === '1234') &&  res.render('products/new')
+      return
+    }
 
-  l(req.params._id)
-  res.render('products/new')
-})
-
+    const farm = await wolf.Farm.findById(
+      req.params._id
+    )
+    res.render('farms/newFarmProduct.ejs', { farm })
+  })
+)
 
 app.all('*', (req, res, next) => {
   next(new ExpressError('Page Not Found🥜🥜', 404))
